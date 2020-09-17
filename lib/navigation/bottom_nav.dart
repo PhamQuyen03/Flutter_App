@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 
-enum TabItem { home, trivia }
+enum TabItem { home, trivia, settings }
 
 Map<TabItem, String> tabName = {
   TabItem.home: 'Home',
   TabItem.trivia: 'Trivia',
+  TabItem.settings: 'Settings'
 };
 
 class BottomNavigation extends StatelessWidget {
@@ -19,6 +20,7 @@ class BottomNavigation extends StatelessWidget {
       items: [
         _buildItem(tabItem: TabItem.home),
         _buildItem(tabItem: TabItem.trivia),
+        _buildItem(tabItem: TabItem.settings),
       ],
       onTap: (index) => onSelectTab(
         TabItem.values[index],

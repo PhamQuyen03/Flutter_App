@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app/features/home/presentation/pages/home_page.dart';
-import 'package:flutter_app/features/home/presentation/pages/post_detail.dart';
-import 'package:flutter_app/features/home/presentation/pages/top_students.dart';
 
+import '../features/home/presentation/pages/home_page.dart';
+import '../features/home/presentation/pages/post_detail.dart';
 import '../features/number_trivia/presentation/pages/number_trivia_page.dart';
+import '../features/settings/presentation/pages/settings_page.dart';
 
 class HomeRouteGenerator {
   static Route<dynamic> generateRoute(RouteSettings settings) {
@@ -32,6 +32,22 @@ class TriviaRouteGenerator {
       case '/':
         {
           return MaterialPageRoute(builder: (_) => NumberTriviaPage());
+        }
+      default:
+        {
+          return _errorRoute();
+        }
+    }
+  }
+}
+
+class SettingsRouteGenerator {
+  static Route<dynamic> generateRoute(RouteSettings settings) {
+    final args = settings.arguments;
+    switch (settings.name) {
+      case '/':
+        {
+          return MaterialPageRoute(builder: (_) => SettingsPage());
         }
       default:
         {

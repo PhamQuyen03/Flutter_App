@@ -15,7 +15,8 @@ class _AppState extends State<App> {
   TabItem _currentTab = TabItem.home;
   Map<TabItem, GlobalKey<NavigatorState>> _navigatorKeys = {
     TabItem.home: GlobalKey<NavigatorState>(),
-    TabItem.trivia: GlobalKey<NavigatorState>()
+    TabItem.trivia: GlobalKey<NavigatorState>(),
+    TabItem.settings: GlobalKey<NavigatorState>()
   };
 
   void _selectTab(TabItem tabItem) {
@@ -48,7 +49,8 @@ class _AppState extends State<App> {
       child: Scaffold(
         body: Stack(children: <Widget>[
           _buildOffstageNavigator(TabItem.home),
-          _buildOffstageNavigator(TabItem.trivia)
+          _buildOffstageNavigator(TabItem.trivia),
+          _buildOffstageNavigator(TabItem.settings)
         ]),
         bottomNavigationBar: BottomNavigation(
           currentTab: _currentTab,

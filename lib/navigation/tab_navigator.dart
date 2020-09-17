@@ -14,6 +14,8 @@ class TabNavigator extends StatelessWidget {
         return HomeRouteGenerator.generateRoute(settings);
       case TabItem.trivia:
         return TriviaRouteGenerator.generateRoute(settings);
+      case TabItem.settings:
+        return SettingsRouteGenerator.generateRoute(settings);
     }
   }
 

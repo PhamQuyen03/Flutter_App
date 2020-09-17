@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_app/features/number_trivia/presentation/pages/number_trivia_page.dart';
-import 'package:flutter_app/navigation/route_generator.dart';
-import 'navigation/bottom_nav.dart';
-import './styles.dart';
+
 import './injection_container.dart' as di;
-import 'app.dart';
+import './styles.dart';
+import 'splash_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -37,7 +35,7 @@ class MyApp extends StatelessWidget {
             subtitle2:
                 TextStyle(fontSize: normalFontSize, color: subTextColor)),
       ),
-      home: App(),
+      home: SplashScreen(),
     );
   }
 }
