@@ -1,4 +1,5 @@
 import 'package:dartz/dartz.dart';
+import 'package:flutter_app/features/authentication/domain/entities/token_response.dart';
 
 import '../../../../core/error/exceptions.dart';
 import '../../../../core/error/failures.dart';
@@ -19,11 +20,32 @@ class AuthenticationRepositoryImpl implements AuthenticationRepository {
       String phoneNumber, String password) async {
     if (await networkInfo.isConnected) {
       try {
-        final remoteTrivia =
+        final loginResponse =
             await remoteDataSource.sendLoginRequest(phoneNumber, password);
 
         //localDataSource.cacheNumberTrivia(remoteTrivia);
-        return Right(remoteTrivia);
+        return Right(loginResponse);
+      } on ServerException {
+        return Left(ServerFailure());
+      }
+    } else {
+      return Left(ServerFailure());
+    }
+  }
+
+  @override
+  Future<Either<Failure, ApiResponseModel<TokenResponse>>> requestNewToken(
+    String token,
+    String refreshToken,
+    String codeChallenge,
+  ) async {
+    if (await networkInfo.isConnected) {
+      try {
+        final tokenResponse = await remoteDataSource.sendRefreshTokenRequest(
+            token, refreshToken, codeChallenge);
+
+        //localDataSource.cacheNumberTrivia(remoteTrivia);
+        return Right(tokenResponse);
       } on ServerException {
         return Left(ServerFailure());
       }

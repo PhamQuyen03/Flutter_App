@@ -15,6 +15,7 @@ class LoginResponseModel extends LoginResponse {
             refreshToken: refreshToken,
             user: user);
   factory LoginResponseModel.fromJson(Map<String, dynamic> json) {
+    if (json == null) return null;
     return LoginResponseModel(
       sessionId: json["sessionId"],
       accessToken: json["accessToken"],
@@ -27,7 +28,7 @@ class LoginResponseModel extends LoginResponse {
       'sessionId': sessionId,
       'accessToken': accessToken,
       'refreshToken': refreshToken,
-      'user': user
+      'user': (user as UserSessionModel).toJson()
     };
   }
 }

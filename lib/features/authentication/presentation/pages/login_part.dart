@@ -1,8 +1,9 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../app.dart';
-import '../../../../authentication/authentication_service.dart';
+import '../../../../core/services/authentication_service.dart';
 import '../../../../injection_container.dart';
 import '../bloc/bloc/login_bloc.dart';
 import '../widgets/form_login.dart';

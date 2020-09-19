@@ -1,7 +1,8 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_app/core/api/api.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
-import '../../../../app.dart';
+import '../../../../injection_container.dart';
 import '../bloc/bloc/login_bloc.dart';
 
 class FormLogin extends StatefulWidget {

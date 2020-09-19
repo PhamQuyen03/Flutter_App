@@ -1,8 +1,13 @@
 import 'dart:convert';
 
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
-import '../features/authentication/data/models/user_session_model.dart';
+import '../../features/authentication/data/models/token_response_model.dart';
+import '../../features/authentication/data/models/user_session_model.dart';
+import '../../features/authentication/domain/usercases/request_token.dart';
+import '../../features/authentication/presentation/pages/login_part.dart';
 
 const JWT_TOKEN = "access_token";
 const REFRESH_TOKEN = "refresh_token";
@@ -10,7 +15,12 @@ const CODE_CHALLENGE = 'session_id';
 const SESSION_USER = 'session_user';
 
 class AuthenticationService {
-  final _storage = FlutterSecureStorage();
+  final RequestToken requestToken;
+  AuthenticationService({@required RequestToken requestToken})
+      : assert(requestToken != null),
+        this.requestToken = requestToken;
+
+  static final _storage = FlutterSecureStorage();
 
   Future<UserSessionModel> getUser() async {
     var tmp = await _storage.read(key: SESSION_USER);
@@ -26,11 +36,10 @@ class AuthenticationService {
   }
 
   Future<bool> isLoggedIn() async {
-    return !!(await this.getJwtToken() != null) &&
-        !!(await this.getUser() != null);
+    return !!(await getJwtToken() != null) && !!(await this.getUser() != null);
   }
 
-  Future<String> getJwtToken() async {
+  static Future<String> getJwtToken() async {
     return await _storage.read(key: JWT_TOKEN);
   }
 
@@ -49,6 +58,18 @@ class AuthenticationService {
     return "";
   }
 
+  Future<TokenResponseModel> requestNewToken() async {
+    var params = Params(await getJwtToken(), await this.getRefreshToken(),
+        await this.getCodeChallenge());
+    final failureOrResponse = await requestToken(params);
+    return failureOrResponse.fold((l) => null, (r) {
+      if (r.status == 1)
+        return r.data as TokenResponseModel;
+      else
+        return null;
+    });
+  }
+
   Future<void> storeTokens(Tokens tokens) async {
     if (tokens != null) {
       await _storage.write(key: JWT_TOKEN, value: tokens.accessToken);
@@ -61,6 +82,11 @@ class AuthenticationService {
     await _storage.delete(key: JWT_TOKEN);
     await _storage.delete(key: REFRESH_TOKEN);
     await _storage.delete(key: CODE_CHALLENGE);
+  }
+
+  Future<void> logOut() async {
+    await this.clearTokens();
+    await this.updateUser(null);
   }
 }
 

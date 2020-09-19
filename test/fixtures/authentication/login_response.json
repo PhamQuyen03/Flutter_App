@@ -1,0 +1,10 @@
+{
+    "sessionId": "5PxhZ2O8",
+    "accessToken": "token_string",
+    "refreshToken": "04043c74-d079-4110-9db6-7284fbcda6fd",
+    "user": {
+        "id": 1,
+        "fullName": "Quản trị viên",
+        "phoneNumber": "0338004227"
+    }
+}

@@ -39,11 +39,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-
-// class RootNavigator extends StatelessWidget {
-//   @override
-//   Widget build(BuildContext context) {
-//     return Navigator(
-//         initialRoute: '/', onGenerateRoute: RouteGenerator.generateRoute);
-//   }
-// }

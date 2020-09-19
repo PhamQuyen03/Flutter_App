@@ -50,9 +50,9 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       if (r.status == 1) {
         return Loaded(loginResponse: r.data);
       } else if (r.status == 0) {
-        return Error(message: r.messsage);
+        return Error(message: r.message);
       } else
-        return Error(message: r.messsage);
+        return Error(message: r.message);
     });
   }
 

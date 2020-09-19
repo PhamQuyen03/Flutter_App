@@ -1,11 +1,10 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_app/app.dart';
-import 'package:flutter_app/authentication/authentication_service.dart';
-import 'package:flutter_app/features/authentication/presentation/pages/login_part.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
+import 'app.dart';
+import 'core/services/authentication_service.dart';
+import 'features/authentication/presentation/pages/login_part.dart';
 import 'injection_container.dart';
 
 class SplashScreen extends StatefulWidget {
