@@ -1,17 +1,18 @@
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../app.dart';
 import '../../../../core/services/authentication_service.dart';
+import '../../../../core/widgets/loading_dialog_widget.dart';
 import '../../../../injection_container.dart';
-import '../bloc/bloc/login_bloc.dart';
+import '../bloc/login/login_bloc.dart';
 import '../widgets/form_login.dart';
-import '../widgets/loading_widget.dart';
 import '../widgets/message_display.dart';
 
 class LoginPage extends StatelessWidget {
   final AuthenticationService _auth = sl<AuthenticationService>();
+  final GlobalKey<State> _keyLoader = new GlobalKey<State>();
+  bool isLoading = false;
 
   @override
   Widget build(BuildContext context) {
@@ -24,14 +25,10 @@ class LoginPage extends StatelessWidget {
         }
       },
       child: Scaffold(
-        appBar: AppBar(
-          title: Text('Login'),
-        ),
-        body: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Center(
-            child: buildBody(context, bloc),
-          ),
+        backgroundColor: Theme.of(context).primaryColor,
+        body: Container(
+          padding: const EdgeInsets.all(15.0),
+          child: buildBody(context, bloc),
         ),
       ),
     );
@@ -43,43 +40,63 @@ class LoginPage extends StatelessWidget {
         child: BlocListener(
           cubit: bloc,
           listener: (BuildContext context, LoginState state) async {
+            if (state is Loading) {
+              _openLoadingDialog(context);
+            }
             if (state is Loaded) {
               await this._auth.updateUser(state.loginResponse.user);
               await this._auth.storeTokens(new Tokens(
                   accessToken: state.loginResponse.accessToken,
                   refreshToken: state.loginResponse.refreshToken,
                   sessionId: state.loginResponse.sessionId));
+              _closeLoadingDialog();
               Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(builder: (context) => App()),
               );
             }
+            if (state is Error) {
+              _closeLoadingDialog();
+            }
           },
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              SizedBox(
-                height: 10,
-              ),
               //top half screen
-              FormLogin(),
-              SizedBox(
-                height: 10,
+              Container(
+                child: Column(children: [
+                  Text(
+                    'Sign In',
+                    style: TextStyle(
+                        fontSize: 30.0,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white),
+                  ),
+                  SizedBox(
+                    height: 50,
+                  ),
+                  FormLogin(),
+                  SizedBox(
+                    height: 15,
+                  ),
+                ]),
               ),
               BlocBuilder<LoginBloc, LoginState>(
                 builder: (context, state) {
                   if (state is Empty) {
-                    return MessageDisplay(
-                      messsage: "Login to yofunny",
+                    return SizedBox(
+                      height: 50,
                     );
                   } else if (state is Loading) {
-                    return LoadingWidget();
-                  } else if (state is Loaded) {
-                    return MessageDisplay(
-                      messsage: "Successfully",
+                    return SizedBox(
+                      height: 50,
                     );
+                  } else if (state is Loaded) {
+                    return SizedBox();
                   } else if (state is Error) {
                     return MessageDisplay(
                       messsage: state.message,
+                      type: 2,
                     );
                   }
                 },
@@ -87,5 +104,17 @@ class LoginPage extends StatelessWidget {
             ],
           ),
         ));
+  }
+
+  _openLoadingDialog(BuildContext context) {
+    if (isLoading) return;
+    isLoading = true;
+    LoadingDialogWidget.showLoadingDialog(context, _keyLoader);
+  }
+
+  _closeLoadingDialog() {
+    if (!isLoading) return;
+    Navigator.of(_keyLoader.currentContext, rootNavigator: true).pop();
+    isLoading = false;
   }
 }

@@ -4,8 +4,9 @@ import 'package:flutter/material.dart';
 
 import 'app.dart';
 import 'core/services/authentication_service.dart';
-import 'features/authentication/presentation/pages/login_part.dart';
+import 'features/authentication/presentation/pages/login_page.dart';
 import 'injection_container.dart';
+import 'navigation/route_generator.dart';
 
 class SplashScreen extends StatefulWidget {
   @override
@@ -51,7 +52,11 @@ class _SplashScreenState extends State<SplashScreen> {
     } else {
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => LoginPage()),
+        MaterialPageRoute(
+            builder: (context) => Navigator(
+                  initialRoute: '/',
+                  onGenerateRoute: AuthenticationRouteGenerator.generateRoute,
+                )),
       );
     }
   }

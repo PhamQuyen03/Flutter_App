@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app/features/authentication/presentation/pages/login_page.dart';
+import 'package:flutter_app/features/authentication/presentation/pages/phone_number_verify_code.dart';
+import 'package:flutter_app/features/authentication/presentation/pages/register_page.dart';
+import 'package:flutter_app/features/authentication/presentation/pages/register_succeed_page.dart';
 
 import '../features/home/presentation/pages/home_page.dart';
 import '../features/home/presentation/pages/post_detail.dart';
@@ -48,6 +52,34 @@ class SettingsRouteGenerator {
       case '/':
         {
           return MaterialPageRoute(builder: (_) => SettingsPage());
+        }
+      default:
+        {
+          return _errorRoute();
+        }
+    }
+  }
+}
+
+class AuthenticationRouteGenerator {
+  static Route<dynamic> generateRoute(RouteSettings settings) {
+    final args = settings.arguments;
+    switch (settings.name) {
+      case '/':
+        {
+          return MaterialPageRoute(builder: (_) => LoginPage());
+        }
+      case '/register':
+        {
+          return MaterialPageRoute(builder: (_) => RegisterPage());
+        }
+      case '/register/verifycode':
+        {
+          return MaterialPageRoute(builder: (_) => PhoneNumberVerifyPage());
+        }
+      case '/register/succeed':
+        {
+          return MaterialPageRoute(builder: (_) => RegisterSucceedPage());
         }
       default:
         {

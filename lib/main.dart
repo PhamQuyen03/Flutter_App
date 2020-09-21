@@ -1,3 +1,4 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
 import './injection_container.dart' as di;
@@ -7,6 +8,7 @@ import 'splash_screen.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await di.init();
+  Firebase.initializeApp();
   runApp(MyApp());
 }
 
@@ -14,10 +16,12 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Yodo Study English',
       theme: ThemeData(
         // Define the default brightness and colors.
         primaryColor: primaryColor,
+        accentColor: secondColor,
         primaryColorLight: subTextColor,
         // Define the default font family.
         fontFamily: 'OpenSans',

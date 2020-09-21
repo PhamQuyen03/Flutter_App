@@ -7,7 +7,7 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import '../../features/authentication/data/models/token_response_model.dart';
 import '../../features/authentication/data/models/user_session_model.dart';
 import '../../features/authentication/domain/usercases/request_token.dart';
-import '../../features/authentication/presentation/pages/login_part.dart';
+import '../../features/authentication/presentation/pages/login_page.dart';
 
 const JWT_TOKEN = "access_token";
 const REFRESH_TOKEN = "refresh_token";

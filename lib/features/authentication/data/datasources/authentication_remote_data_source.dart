@@ -20,6 +20,12 @@ abstract class AuthenticationRemoteDataSource {
   /// Throws a [ServerException] for all error codes
   Future<ApiResponseModel<TokenResponseModel>> sendRefreshTokenRequest(
       String token, String refreshToken, String codeChallenge);
+
+  /// Send request new token to [Api.REGISTER] enpoint
+  /// @Return [UserId]
+  /// Throws a [ServerException] for all error codes
+  Future<int> sendRegisterRequest(
+      {String phoneNumber, String password, String fullName, String email});
 }
 
 class AuthenticationRemoteDataSourceImpl
@@ -77,6 +83,25 @@ class AuthenticationRemoteDataSourceImpl
     if (response.statusCode == 200)
       return response.data;
     else
+      throw ServerException();
+  }
+
+  @override
+  Future<int> sendRegisterRequest({
+    String phoneNumber,
+    String password,
+    String fullName,
+    String email,
+  }) async {
+    final Response response = await dio.post(Api.REGISTER, data: {
+      'phoneNumber': phoneNumber,
+      'password': password,
+      'fullName': fullName,
+      'email': email,
+    });
+    if (response.statusCode == 200) {
+      return int.parse(response.data);
+    } else
       throw ServerException();
   }
 }

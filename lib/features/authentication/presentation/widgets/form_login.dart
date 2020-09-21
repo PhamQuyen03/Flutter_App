@@ -1,9 +1,9 @@
-import 'package:dio/dio.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_app/core/api/api.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../../../../injection_container.dart';
-import '../bloc/bloc/login_bloc.dart';
+import '../bloc/login/login_bloc.dart';
+import 'button.dart';
+import 'input_box.dart';
 
 class FormLogin extends StatefulWidget {
   FormLogin({Key key}) : super(key: key);
@@ -13,72 +13,124 @@ class FormLogin extends StatefulWidget {
 }
 
 class _FormLoginState extends State<FormLogin> {
-  TextEditingController controller = TextEditingController();
-  String phoneNumber;
-  String password;
-  TextStyle style = TextStyle(fontFamily: 'Montserrat', fontSize: 20.0);
+  String _phoneNumber;
+  String _password;
+  GlobalKey<FormState> formKey = new GlobalKey<FormState>();
+  @override
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  bool isSubmitted = false;
   @override
   Widget build(BuildContext context) {
-    final phoneNumberField = TextField(
-      obscureText: false,
-      style: style,
-      onChanged: (value) {
-        phoneNumber = value;
-      },
-      decoration: InputDecoration(
-          contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
-          hintText: "PhoneNumber",
-          border:
-              OutlineInputBorder(borderRadius: BorderRadius.circular(32.0))),
+    return Form(
+      key: formKey,
+      autovalidate: isSubmitted,
+      child: Column(
+        children: [
+          InputBoxControl(
+            placeHolder: "Phone Number",
+            onSaved: (value) => _phoneNumber = value,
+            onChanged: (value) => dispatchResetLoginForm(),
+            validator: validatePhoneNumber,
+            textInputType: TextInputType.phone,
+            prefixIcon: Icons.phone,
+          ),
+          SizedBox(
+            height: 15,
+          ),
+          InputBoxControl(
+            placeHolder: "Password",
+            onSaved: (value) => _password = value,
+            onChanged: (value) => dispatchResetLoginForm(),
+            validator: (value) {
+              if (value.length == 0) return "Enter your password";
+              return null;
+            },
+            obscureText: true,
+            prefixIcon: Icons.lock,
+          ),
+          SizedBox(
+            height: 15,
+          ),
+          ButtonWidget(
+            label: 'LOGIN',
+            onSubmit: () {
+              _onSubmit(context);
+            },
+            color: Theme.of(context).accentColor,
+            textStyle: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 18,
+              color: Colors.white,
+            ),
+          ),
+          SizedBox(
+            height: 25.0,
+          ),
+          ClickableText(),
+        ],
+      ),
     );
-    final passwordField = TextField(
-      obscureText: true,
-      style: style,
-      onChanged: (value) {
-        password = value;
-      },
-      decoration: InputDecoration(
-          contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
-          hintText: "Password",
-          border:
-              OutlineInputBorder(borderRadius: BorderRadius.circular(32.0))),
-    );
+  }
 
-    return Column(
-      children: [
-        phoneNumberField,
-        SizedBox(
-          height: 10,
-        ),
-        passwordField,
-        Row(
-          children: [
-            Expanded(
-              child: RaisedButton(
-                onPressed: dispatchSendLoginRequest,
-                child: Text('Login'),
-                color: Theme.of(context).accentColor,
-                textTheme: ButtonTextTheme.primary,
-              ),
-            ),
-            SizedBox(
-              width: 10,
-            ),
-            Expanded(
-              child: RaisedButton(
-                onPressed: () {},
-                child: Text('Register'),
-              ),
-            ),
-          ],
-        ),
-      ],
-    );
+  String validatePhoneNumber(String value) {
+    String pattern = r'(^0\d*$)';
+    RegExp regExp = RegExp(pattern);
+    if (value.length == 0) {
+      return "Enter your phone number";
+    } else if (value.length > 11) {
+      return "Invalid phone number";
+    } else if (!regExp.hasMatch(value)) {
+      return "Invalid phone number";
+    }
+    return null;
+  }
+
+  void _onSubmit(BuildContext context) {
+    var form = formKey.currentState;
+    if (form.validate()) {
+      form.save();
+      this.isSubmitted = true;
+      dispatchSendLoginRequest();
+    }
   }
 
   void dispatchSendLoginRequest() {
     //controller.clear();
     BlocProvider.of<LoginBloc>(context)
-        .add(SendLoginRequestEvent(phoneNumber, password));
+        .add(SendLoginRequestEvent(_phoneNumber, _password));
+  }
+
+  void dispatchResetLoginForm() {
+    if (isSubmitted) {
+      BlocProvider.of<LoginBloc>(context).add(ResetLoginFormEvent());
+      isSubmitted = false;
+    }
+  }
+}
+
+class ClickableText extends StatelessWidget {
+  const ClickableText({Key key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return RichText(
+      text: TextSpan(
+        style: TextStyle(color: Colors.grey),
+        children: <TextSpan>[
+          TextSpan(text: "Don't have an account? "),
+          TextSpan(
+              text: 'Sign up for free',
+              style: TextStyle(color: Theme.of(context).accentColor),
+              recognizer: TapGestureRecognizer()
+                ..onTap = () {
+                  Navigator.of(context).pushNamed('/register');
+                }),
+        ],
+      ),
+    );
   }
 }

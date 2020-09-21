@@ -13,3 +13,9 @@ class SendLoginRequestEvent extends LoginEvent {
   @override
   List<Object> get props => [phoneNumber, password];
 }
+
+class ResetLoginFormEvent extends LoginEvent {
+  @override
+  // TODO: implement props
+  List<Object> get props => [];
+}

@@ -2,7 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/core/api/api.dart';
 import 'package:flutter_app/core/services/authentication_service.dart';
-import 'package:flutter_app/features/authentication/presentation/pages/login_part.dart';
+import 'package:flutter_app/features/authentication/presentation/pages/login_page.dart';
 
 import '../../../../injection_container.dart';
 
@@ -11,23 +11,31 @@ class SettingsPage extends StatelessWidget {
   final Dio dio = sl<Dio>();
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Column(
-        children: [
-          RaisedButton(
-            child: Text('Log out'),
-            onPressed: () async {
-              await _logOut(context);
-            },
-          ),
-          RaisedButton(
-            child: Text('Send'),
-            onPressed: () async {
-              var res = await dio.get(Api.SUBJECT);
-              print(res.toString());
-            },
-          ),
-        ],
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Settings'),
+      ),
+      body: Center(
+        child: Column(
+          mainAxisSize: MainAxisSize.max,
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            RaisedButton(
+              child: Text('Log out'),
+              onPressed: () async {
+                await _logOut(context);
+              },
+            ),
+            RaisedButton(
+              child: Text('Send'),
+              onPressed: () async {
+                var res = await dio.get(Api.SUBJECT);
+                print(res.toString());
+              },
+            ),
+          ],
+        ),
       ),
     );
   }

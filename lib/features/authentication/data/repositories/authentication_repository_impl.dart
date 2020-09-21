@@ -53,4 +53,29 @@ class AuthenticationRepositoryImpl implements AuthenticationRepository {
       return Left(ServerFailure());
     }
   }
+
+  @override
+  Future<Either<Failure, int>> requestRegister({
+    String phoneNumber,
+    String password,
+    String fullName,
+    String email,
+  }) async {
+    if (await networkInfo.isConnected) {
+      try {
+        final responseUserId = await remoteDataSource.sendRegisterRequest(
+            phoneNumber: phoneNumber,
+            password: password,
+            fullName: fullName,
+            email: email);
+
+        //localDataSource.cacheNumberTrivia(remoteTrivia);
+        return Right(responseUserId);
+      } on ServerException {
+        return Left(ServerFailure());
+      }
+    } else {
+      return Left(ServerFailure());
+    }
+  }
 }

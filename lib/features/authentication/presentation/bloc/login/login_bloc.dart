@@ -32,6 +32,9 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     if (event is SendLoginRequestEvent) {
       yield* _mapSendLoginRequest(event.phoneNumber, event.password);
     }
+    if (event is ResetLoginFormEvent) {
+      yield Empty();
+    }
   }
 
   Stream<LoginState> _mapSendLoginRequest(
