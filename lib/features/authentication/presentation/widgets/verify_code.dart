@@ -1,47 +1,29 @@
 import 'dart:async';
 
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_app/core/services/phone_authentiaction.dart';
-import 'package:flutter_app/core/widgets/loading_dialog_widget.dart';
-import 'package:flutter_app/features/authentication/domain/usercases/request_register.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
-import '../../../../injection_container.dart';
+import '../../../../core/services/phone_authentiaction.dart';
+import '../../../../core/widgets/loading_dialog_widget.dart';
+import '../pages/phone_number_verify_code.dart';
 import 'button.dart';
 
-class FormVerifyCodeArguments {
-  final String phoneNumber;
-  final String password;
-  final String fullName;
-  final String email;
-  FormVerifyCodeArguments(
-    this.phoneNumber,
-    this.password,
-    this.fullName,
-    this.email,
-  );
-}
-
 class FormVerifyCode extends StatefulWidget {
-  final String phoneNumber = "338004227";
-  FormVerifyCode({Key key}) : super(key: key);
+  final FormVerifyCodeArguments arguments;
+  FormVerifyCode({Key key, this.arguments}) : super(key: key);
 
   @override
   _FormVerifyCodeState createState() => _FormVerifyCodeState();
 }
 
 class _FormVerifyCodeState extends State<FormVerifyCode> {
-  RequestRegister requestRegister = sl<RequestRegister>();
   var onTapRecognizer;
   StreamController<ErrorAnimationType> errorController;
   TextEditingController textEditingController = TextEditingController();
   bool hasError = false;
-  final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
   final GlobalKey<State> _keyLoader = new GlobalKey<State>();
-  final formKey = GlobalKey<FormState>();
   PhoneAuthenticationService phoneAuth;
 
   bool isCodeSent = false;
@@ -70,10 +52,7 @@ class _FormVerifyCodeState extends State<FormVerifyCode> {
 
   @override
   Widget build(BuildContext context) {
-    final FormVerifyCodeArguments registerModel =
-        ModalRoute.of(context).settings.arguments;
     return Form(
-      key: formKey,
       child: Padding(
           padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 15),
           child: Column(
@@ -111,7 +90,7 @@ class _FormVerifyCodeState extends State<FormVerifyCode> {
                 },
                 onSubmitted: (pin) async {
                   if (pin.length == 6) {
-                    await _onSubmit(registerModel);
+                    await _onSubmit();
                   } else {
                     showSnackBar("Invalid OTP");
                   }
@@ -129,13 +108,15 @@ class _FormVerifyCodeState extends State<FormVerifyCode> {
               ),
               ButtonWidget(
                 label: 'VERIFY NOW',
-                onSubmit: () async {
-                  if (textEditingController.text.length == 6) {
-                    await _onSubmit(registerModel);
-                  } else {
-                    showSnackBar("Invalid OTP");
-                  }
-                },
+                onSubmit: _verificationId == null
+                    ? null
+                    : () async {
+                        if (textEditingController.text.length == 6) {
+                          await _onSubmit();
+                        } else {
+                          showSnackBar("Invalid OTP");
+                        }
+                      },
                 color: Theme.of(context).accentColor,
                 textStyle: TextStyle(
                   fontWeight: FontWeight.bold,
@@ -166,7 +147,7 @@ class _FormVerifyCodeState extends State<FormVerifyCode> {
     );
   }
 
-  Future<void> _onSubmit(FormVerifyCodeArguments registerModel) async {
+  Future<void> _onSubmit() async {
     _openLoadingDialog(context);
     AuthCredential _authCredential = PhoneAuthProvider.credential(
         verificationId: _verificationId, smsCode: textEditingController.text);
@@ -176,28 +157,12 @@ class _FormVerifyCodeState extends State<FormVerifyCode> {
         .then((UserCredential value) async {
       _closeLoadingDialog();
       if (value.user != null) {
-        // Handle loogged in state
-        var response = await requestRegister.call(Params(
-          phoneNumber: registerModel.phoneNumber,
-          password: registerModel.password,
-          fullName: registerModel.fullName,
-          email: registerModel.email,
-        ));
-        response.fold((l) async {
-          showSnackBar("Failed to create your account");
-          await Future.delayed(Duration(seconds: 2), () {
-            Navigator.of(context).pop();
-          });
-        }, (r) {
-          if (r >= 1)
-            Navigator.of(context).pushReplacementNamed('/register/succeed');
-          else
-            showSnackBar("Falied to create your account");
-        });
+        Navigator.pop(context, true);
       } else {
         showSnackBar("Error validating OTP, try again");
       }
     }).catchError((error) {
+      print(error.toString());
       _closeLoadingDialog();
       showSnackBar("Something went wrong");
     });
@@ -260,7 +225,7 @@ class _FormVerifyCodeState extends State<FormVerifyCode> {
     };
 
     await _firebaseAuth.verifyPhoneNumber(
-        phoneNumber: "+84${widget.phoneNumber}",
+        phoneNumber: "+84${_formatPhoneNumber(widget.arguments.phoneNumber)}",
         timeout: const Duration(seconds: 60),
         verificationCompleted: verificationCompleted,
         verificationFailed: verificationFailed,
@@ -286,5 +251,10 @@ class _FormVerifyCodeState extends State<FormVerifyCode> {
       Navigator.of(_keyLoader.currentContext, rootNavigator: true).pop();
       isLoading = false;
     }
+  }
+
+  _formatPhoneNumber(String phoneNumber) {
+    if (phoneNumber.startsWith("0")) return phoneNumber.substring(1);
+    return phoneNumber;
   }
 }

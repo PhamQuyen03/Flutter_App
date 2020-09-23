@@ -22,3 +22,9 @@ class SendRegisterRequestEvent extends RegisterEvent {
   @override
   List<Object> get props => [phoneNumber, password, fullName];
 }
+
+class RegisterResetFormEvent extends RegisterEvent {
+  @override
+  // TODO: implement props
+  List<Object> get props => [];
+}

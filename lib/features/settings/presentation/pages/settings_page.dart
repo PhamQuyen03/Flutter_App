@@ -1,9 +1,9 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_app/core/api/api.dart';
-import 'package:flutter_app/core/services/authentication_service.dart';
-import 'package:flutter_app/features/authentication/presentation/pages/login_page.dart';
 
+import '../../../../navigation/authentication.dart';
+import '../../../../core/api/api.dart';
+import '../../../../core/services/authentication_service.dart';
 import '../../../../injection_container.dart';
 
 class SettingsPage extends StatelessWidget {
@@ -45,7 +45,7 @@ class SettingsPage extends StatelessWidget {
       //await this.dio.get(`${this.url}/api/authenticate/logout?refresh_token=${this.getRefreshToken()}`).subscribe();
       await this._auth.logOut();
     }
-    Navigator.of(context, rootNavigator: true)
-        .pushReplacement(MaterialPageRoute(builder: (context) => LoginPage()));
+    Navigator.of(context, rootNavigator: true).pushReplacement(
+        MaterialPageRoute(builder: (context) => AuthenticationRootNavigator()));
   }
 }

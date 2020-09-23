@@ -55,7 +55,7 @@ class AuthenticationRepositoryImpl implements AuthenticationRepository {
   }
 
   @override
-  Future<Either<Failure, int>> requestRegister({
+  Future<Either<Failure, ApiResponseModel<int>>> requestRegister({
     String phoneNumber,
     String password,
     String fullName,

@@ -1,9 +1,11 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_app/features/authentication/presentation/widgets/verify_code.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../bloc/login/login_bloc.dart';
+import '../../../../injection_container.dart';
+import '../../domain/usercases/request_register.dart';
+import '../bloc/register/register_bloc.dart';
+import '../pages/phone_number_verify_code.dart';
 import 'button.dart';
 import 'input_box.dart';
 
@@ -15,6 +17,7 @@ class FormRegister extends StatefulWidget {
 }
 
 class _FormRegisterState extends State<FormRegister> {
+  RequestRegister requestRegister = sl<RequestRegister>();
   String _phoneNumber;
   String _password;
   String _fullName;
@@ -88,7 +91,7 @@ class _FormRegisterState extends State<FormRegister> {
           InputBoxControl(
             placeHolder: "Full Name",
             onSaved: (value) => _fullName = value,
-            onChanged: (value) => dispatchResetLoginForm(),
+            onChanged: (value) => _dispatchResetForm(),
             validator: validateName,
             textInputType: TextInputType.text,
             prefixIcon: Icons.person,
@@ -99,7 +102,7 @@ class _FormRegisterState extends State<FormRegister> {
           InputBoxControl(
             placeHolder: "Phone Number",
             onSaved: (value) => _phoneNumber = value,
-            onChanged: (value) => dispatchResetLoginForm(),
+            onChanged: (value) => _dispatchResetForm(),
             validator: validatePhoneNumber,
             textInputType: TextInputType.phone,
             prefixIcon: Icons.phone,
@@ -111,7 +114,7 @@ class _FormRegisterState extends State<FormRegister> {
             placeHolder: "Password",
             formFieldKey: passKey,
             onSaved: (value) => _password = value,
-            onChanged: (value) => dispatchResetLoginForm(),
+            onChanged: (value) => _dispatchResetForm(),
             validator: validatePassword,
             obscureText: true,
             prefixIcon: Icons.lock,
@@ -121,7 +124,7 @@ class _FormRegisterState extends State<FormRegister> {
           ),
           InputBoxControl(
             placeHolder: "Confirm Password",
-            onChanged: (value) => dispatchResetLoginForm(),
+            onChanged: (value) => _dispatchResetForm(),
             validator: validatePasswordMatching,
             obscureText: true,
             prefixIcon: Icons.lock,
@@ -198,14 +201,13 @@ class _FormRegisterState extends State<FormRegister> {
   }
 
   Future<void> _onSubmit(BuildContext context) async {
-    // dispatchSendLoginRequest();
     setState(() {
       this.isSubmitted = true;
     });
     var form = formKey.currentState;
     if (form.validate()) {
       form.save();
-      Navigator.of(context).pushNamed(
+      final phoneValidated = await Navigator.of(context).pushNamed(
         '/register/verifycode',
         arguments: FormVerifyCodeArguments(
           _phoneNumber,
@@ -214,20 +216,28 @@ class _FormRegisterState extends State<FormRegister> {
           "dangduoc@outlook.com",
         ),
       );
+      if ((phoneValidated != null) && (phoneValidated == true)) {
+        _dispatchRequestRegister();
+      }
     }
   }
 
-  void dispatchSendLoginRequest() {
-    //controller.clear();
-    BlocProvider.of<LoginBloc>(context)
-        .add(SendLoginRequestEvent(_phoneNumber, _password));
+  void _dispatchRequestRegister() {
+    if (isSubmitted) {
+      BlocProvider.of<RegisterBloc>(context).add(SendRegisterRequestEvent(
+          phoneNumber: _phoneNumber,
+          password: _password,
+          fullName: _fullName,
+          email: "dangduoc@outlook.com"));
+      isSubmitted = false;
+    }
   }
 
-  void dispatchResetLoginForm() {
-    // if (isSubmitted) {
-    //   BlocProvider.of<LoginBloc>(context).add(ResetLoginFormEvent());
-    //   isSubmitted = false;
-    // }
+  void _dispatchResetForm() {
+    if (isSubmitted) {
+      BlocProvider.of<RegisterBloc>(context).add(RegisterResetFormEvent());
+      isSubmitted = false;
+    }
   }
 }
 

@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/core/services/authentication_service.dart';
 import 'package:flutter_app/navigation/bottom_nav.dart';
-import 'injection_container.dart';
-import 'navigation/tab_navigator.dart';
+import '../injection_container.dart';
+import 'tab_navigator.dart';
 
 final navigatorKey = GlobalKey<NavigatorState>();
 
-class App extends StatefulWidget {
-  App({Key key}) : super(key: key);
+class AppRootNavigator extends StatefulWidget {
+  AppRootNavigator({Key key}) : super(key: key);
 
   @override
-  _AppState createState() => _AppState();
+  _AppRootNavigatorState createState() => _AppRootNavigatorState();
 }
 
-class _AppState extends State<App> {
+class _AppRootNavigatorState extends State<AppRootNavigator> {
   AuthenticationService auth = sl<AuthenticationService>();
   TabItem _currentTab = TabItem.home;
   Map<TabItem, GlobalKey<NavigatorState>> _navigatorKeys = {

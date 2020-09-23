@@ -1,8 +1,9 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_app/navigation/authentication.dart';
 
-import 'app.dart';
+import 'navigation/app.dart';
 import 'core/services/authentication_service.dart';
 import 'features/authentication/presentation/pages/login_page.dart';
 import 'injection_container.dart';
@@ -47,16 +48,12 @@ class _SplashScreenState extends State<SplashScreen> {
     if (await _auth.isLoggedIn()) {
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => App()),
+        MaterialPageRoute(builder: (context) => AppRootNavigator()),
       );
     } else {
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(
-            builder: (context) => Navigator(
-                  initialRoute: '/',
-                  onGenerateRoute: AuthenticationRouteGenerator.generateRoute,
-                )),
+        MaterialPageRoute(builder: (context) => AuthenticationRootNavigator()),
       );
     }
   }

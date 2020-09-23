@@ -5,6 +5,7 @@ import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/core/error/failures.dart';
+import 'package:flutter_app/core/models/api_response_model.dart';
 import 'package:flutter_app/features/authentication/domain/usercases/request_register.dart';
 
 part 'register_event.dart';
@@ -25,7 +26,7 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
     RegisterEvent event,
   ) async* {
     if (event is SendRegisterRequestEvent) {
-      yield* _mapSendLoginRequest(
+      yield* _mapSendRegisterRequest(
           event.phoneNumber, event.password, event.fullName, event.email);
     }
     if (event is RegisterCheckPhoneNumberEvent) {
@@ -33,7 +34,7 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
     }
   }
 
-  Stream<RegisterState> _mapSendLoginRequest(String phoneNumber,
+  Stream<RegisterState> _mapSendRegisterRequest(String phoneNumber,
       String password, String fullName, String email) async* {
     // final inputEdither = inputConverter.stringToUnsignedInt(numberString);
     yield RegisterLoading();
@@ -47,11 +48,16 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
   }
 
   Stream<RegisterState> _eitherLoadedOrErrorState(
-    Either<Failure, int> failureOrResponse,
+    Either<Failure, ApiResponseModel<int>> failureOrResponse,
   ) async* {
     yield failureOrResponse
         .fold((l) => RegisterError(message: _mapFailureToMessage(l)), (r) {
-      return RegisterLoaded(r);
+      if (r.status == 1) {
+        return RegisterLoaded(r.data);
+      } else if (r.status == 0) {
+        return RegisterError(message: r.message);
+      } else
+        return RegisterError(message: "Something went wrong. Try later");
     });
   }
 

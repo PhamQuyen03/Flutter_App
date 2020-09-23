@@ -12,6 +12,6 @@ abstract class AuthenticationRepository {
   Future<Either<Failure, ApiResponseModel<TokenResponse>>> requestNewToken(
       String token, String refreshToken, String codeChallenge);
 
-  Future<Either<Failure, int>> requestRegister(
+  Future<Either<Failure, ApiResponseModel<int>>> requestRegister(
       {String phoneNumber, String password, String fullName, String email});
 }

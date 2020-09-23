@@ -2,15 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../core/services/authentication_service.dart';
+import '../../../../core/widgets/loading_dialog_widget.dart';
 import '../../../../injection_container.dart';
-import '../bloc/login/login_bloc.dart';
+import '../bloc/register/register_bloc.dart';
 import '../widgets/form_register.dart';
 
 class RegisterPage extends StatelessWidget {
   final AuthenticationService _auth = sl<AuthenticationService>();
+  final GlobalKey<State> _keyLoader = new GlobalKey<State>();
+  bool isLoading = false;
   @override
   Widget build(BuildContext context) {
-    LoginBloc bloc = sl<LoginBloc>();
+    RegisterBloc bloc = sl<RegisterBloc>();
     return GestureDetector(
       onTap: () {
         FocusScopeNode currentFocus = FocusScope.of(context);
@@ -35,14 +38,32 @@ class RegisterPage extends StatelessWidget {
     );
   }
 
-  BlocProvider<LoginBloc> buildBody(BuildContext context, LoginBloc bloc) {
+  BlocProvider<RegisterBloc> buildBody(
+      BuildContext context, RegisterBloc bloc) {
     return BlocProvider(
         create: (context) => bloc,
         child: BlocListener(
           cubit: bloc,
-          listener: (BuildContext context, LoginState state) async {
-            if (state is Loading) {
-              // _openLoadingDialog(context);
+          listener: (BuildContext context, RegisterState state) async {
+            if (state is RegisterInitial) {
+              _closeLoadingDialog();
+            }
+            if (state is RegisterLoading) {
+              _openLoadingDialog(context);
+            }
+            if (state is RegisterError) {
+              _closeLoadingDialog();
+              Scaffold.of(context).showSnackBar(SnackBar(
+                content: Text(
+                  state.message,
+                  style: TextStyle(color: Colors.white),
+                ),
+                backgroundColor: Colors.red,
+              ));
+            }
+            if (state is RegisterLoaded) {
+              _closeLoadingDialog();
+              Navigator.pushReplacementNamed(context, '/register/succeed');
             }
           },
           child: Column(
@@ -57,5 +78,17 @@ class RegisterPage extends StatelessWidget {
             ],
           ),
         ));
+  }
+
+  _openLoadingDialog(BuildContext context) {
+    if (isLoading) return;
+    isLoading = true;
+    LoadingDialogWidget.showLoadingDialog(context, _keyLoader);
+  }
+
+  _closeLoadingDialog() {
+    if (!isLoading) return;
+    Navigator.of(_keyLoader.currentContext, rootNavigator: true).pop();
+    isLoading = false;
   }
 }

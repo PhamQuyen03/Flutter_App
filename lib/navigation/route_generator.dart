@@ -3,6 +3,7 @@ import 'package:flutter_app/features/authentication/presentation/pages/login_pag
 import 'package:flutter_app/features/authentication/presentation/pages/phone_number_verify_code.dart';
 import 'package:flutter_app/features/authentication/presentation/pages/register_page.dart';
 import 'package:flutter_app/features/authentication/presentation/pages/register_succeed_page.dart';
+import 'package:flutter_app/features/authentication/presentation/widgets/verify_code.dart';
 
 import '../features/home/presentation/pages/home_page.dart';
 import '../features/home/presentation/pages/post_detail.dart';
@@ -63,7 +64,6 @@ class SettingsRouteGenerator {
 
 class AuthenticationRouteGenerator {
   static Route<dynamic> generateRoute(RouteSettings settings) {
-    final args = settings.arguments;
     switch (settings.name) {
       case '/':
         {
@@ -75,7 +75,9 @@ class AuthenticationRouteGenerator {
         }
       case '/register/verifycode':
         {
-          return MaterialPageRoute(builder: (_) => PhoneNumberVerifyPage());
+          return MaterialPageRoute(
+              builder: (_) => PhoneNumberVerifyPage(
+                  settings.arguments as FormVerifyCodeArguments));
         }
       case '/register/succeed':
         {

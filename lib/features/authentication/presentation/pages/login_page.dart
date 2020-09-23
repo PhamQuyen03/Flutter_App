@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../app.dart';
+import '../../../../navigation/app.dart';
 import '../../../../core/services/authentication_service.dart';
 import '../../../../core/widgets/loading_dialog_widget.dart';
 import '../../../../injection_container.dart';
@@ -52,7 +52,7 @@ class LoginPage extends StatelessWidget {
               _closeLoadingDialog();
               Navigator.pushReplacement(
                 context,
-                MaterialPageRoute(builder: (context) => App()),
+                MaterialPageRoute(builder: (context) => AppRootNavigator()),
               );
             }
             if (state is Error) {
@@ -92,7 +92,9 @@ class LoginPage extends StatelessWidget {
                       height: 50,
                     );
                   } else if (state is Loaded) {
-                    return SizedBox();
+                    return SizedBox(
+                      height: 50,
+                    );
                   } else if (state is Error) {
                     return MessageDisplay(
                       messsage: state.message,

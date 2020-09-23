@@ -24,7 +24,7 @@ abstract class AuthenticationRemoteDataSource {
   /// Send request new token to [Api.REGISTER] enpoint
   /// @Return [UserId]
   /// Throws a [ServerException] for all error codes
-  Future<int> sendRegisterRequest(
+  Future<ApiResponseModel<int>> sendRegisterRequest(
       {String phoneNumber, String password, String fullName, String email});
 }
 
@@ -87,7 +87,7 @@ class AuthenticationRemoteDataSourceImpl
   }
 
   @override
-  Future<int> sendRegisterRequest({
+  Future<ApiResponseModel<int>> sendRegisterRequest({
     String phoneNumber,
     String password,
     String fullName,
@@ -100,7 +100,8 @@ class AuthenticationRemoteDataSourceImpl
       'email': email,
     });
     if (response.statusCode == 200) {
-      return int.parse(response.data);
+      return ApiResponseModel<int>.fromJson(
+          response.data, response.data["data"]);
     } else
       throw ServerException();
   }
