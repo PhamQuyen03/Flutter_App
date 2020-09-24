@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_app/core/config/palette.dart';
 import 'package:flutter_app/features/home/presentation/pages/top_students.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import '../../../../styles.dart';
 import '../widgets/new_box.dart';
 
 class HomePage extends StatefulWidget {
@@ -57,7 +57,11 @@ class _State extends State<HomePage> {
                   children: [
                     Text(
                       'THÔNG BÁO',
-                      style: Theme.of(context).textTheme.headline1,
+                      style: TextStyle(
+                        fontSize: 18.0,
+                        fontWeight: FontWeight.bold,
+                        color: Palette.textDarkBlue,
+                      ),
                     ),
                     Ink(
                       height: 46,
@@ -69,7 +73,7 @@ class _State extends State<HomePage> {
                               color: Color(0xffdddddd)),
                         ],
                         borderRadius: BorderRadius.circular(23),
-                        color: appBackgroundColor,
+                        color: Palette.scaffold,
                       ),
                       child: InkWell(
                         onTap: () async {

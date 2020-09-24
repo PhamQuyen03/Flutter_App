@@ -1,12 +1,12 @@
 import 'dart:convert';
-
-import 'package:dio/dio.dart';
-
+import 'package:dartz/dartz.dart';
+import 'package:flutter/material.dart';
 import '../../../../core/api/api.dart';
 import '../../../../core/error/exceptions.dart';
 import '../../../../core/models/api_response_model.dart';
 import '../models/login_response_model.dart';
 import '../models/token_response_model.dart';
+import 'package:http/http.dart' as http;
 
 abstract class AuthenticationRemoteDataSource {
   /// Send login request to [Api.LOGIN] enpoint
@@ -30,60 +30,37 @@ abstract class AuthenticationRemoteDataSource {
 
 class AuthenticationRemoteDataSourceImpl
     implements AuthenticationRemoteDataSource {
-  var dio = new Dio();
-  AuthenticationRemoteDataSourceImpl() {
-    dio.interceptors.add(InterceptorsWrapper(
-      onError: (e) {
-        if (e.type == DioErrorType.RESPONSE)
-          return e.response;
-        else
-          return e;
-      },
-    ));
-  }
+  final http.Client client;
+  AuthenticationRemoteDataSourceImpl({@required this.client});
   @override
   Future<ApiResponseModel<LoginResponseModel>> sendLoginRequest(
       String phoneNumber, String password) async {
-    //String bodyRes = await _sendPostRequest(Api.LOGIN, );
-    final Response response = await dio.post(Api.LOGIN, data: {
+    var either = await sendPostRequest(Api.LOGIN, {
       'phoneNumber': phoneNumber,
       'password': password,
     });
-    if (response.statusCode == 200) {
+    return either.fold((l) => throw l, (r) {
       return ApiResponseModel.fromJson(
-        response.data,
-        LoginResponseModel.fromJson(
-          response.data['data'],
-        ),
+        r,
+        LoginResponseModel.fromJson(r['data']),
       );
-    } else
-      throw ServerException();
+    });
   }
 
   @override
   Future<ApiResponseModel<TokenResponseModel>> sendRefreshTokenRequest(
       String token, String refreshToken, String codeChallenge) async {
-    String bodyRes = await _sendPostRequest(Api.REFRESH_TOKEN, {
+    var either = await sendPostRequest(Api.REFRESH_TOKEN, {
       'token': token,
       'refreshToken': refreshToken,
       'code_challenge': codeChallenge
     });
-    // print(response.body);
-    var tmp = json.decode(bodyRes);
-    return ApiResponseModel.fromJson(
-      tmp,
-      TokenResponseModel.fromJson(
-        tmp['data'],
-      ),
-    );
-  }
-
-  Future<String> _sendPostRequest(String url, Map<String, dynamic> data) async {
-    final Response response = await dio.post(url, data: data);
-    if (response.statusCode == 200)
-      return response.data;
-    else
-      throw ServerException();
+    return either.fold((l) => throw l, (r) {
+      return ApiResponseModel.fromJson(
+        r,
+        TokenResponseModel.fromJson(r["data"]),
+      );
+    });
   }
 
   @override
@@ -93,16 +70,30 @@ class AuthenticationRemoteDataSourceImpl
     String fullName,
     String email,
   }) async {
-    final Response response = await dio.post(Api.REGISTER, data: {
+    var either = await sendPostRequest(Api.REGISTER, <String, String>{
       'phoneNumber': phoneNumber,
       'password': password,
       'fullName': fullName,
       'email': email,
     });
+    return either.fold((l) => throw l, (r) {
+      return ApiResponseModel.fromJson(
+        r,
+        r["data"],
+      );
+    });
+  }
+
+  Future<Either<ServerException, Map<String, dynamic>>> sendPostRequest(
+      String url, Map<String, dynamic> data) async {
+    final http.Response response = await client.post(
+      url,
+      headers: {'Content-Type': 'application/json'},
+      body: jsonEncode(data),
+    );
     if (response.statusCode == 200) {
-      return ApiResponseModel<int>.fromJson(
-          response.data, response.data["data"]);
+      return Right(jsonDecode(response.body));
     } else
-      throw ServerException();
+      return Left(ServerException());
   }
 }

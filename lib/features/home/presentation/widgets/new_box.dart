@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import './new_box_header.dart';
 import './new_box_bottom.dart';
-import '../../../../styles.dart';
 
 class NewBox extends StatelessWidget {
   @override

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../../../styles.dart';
+import 'package:flutter_app/core/config/palette.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class NewBoxHeader extends StatelessWidget {
@@ -27,11 +27,14 @@ class NewBoxHeader extends StatelessWidget {
                     Text(
                       'Nguyễn Minh Tuấn',
                       textAlign: TextAlign.left,
-                      style: Theme.of(context).textTheme.headline1,
+                      style: TextStyle(
+                          fontSize: 18.0,
+                          fontWeight: FontWeight.bold,
+                          color: Palette.textDarkBlue),
                     ),
                     Text(
                       '15 phút trước',
-                      style: Theme.of(context).textTheme.subtitle1,
+                      style: TextStyle(fontSize: 12.0),
                       textAlign: TextAlign.left,
                     )
                   ],

@@ -15,7 +15,8 @@ void main() {
   group('fromJson', () {
     test('should return a valid model when json number is a integer', () async {
       //arrange
-      final Map<String, dynamic> jsonMap = json.decode(fixture('trivia.json'));
+      final Map<String, dynamic> jsonMap =
+          json.decode(fixture('trivia/trivia.json'));
       //act
       final result = NumberTriviaModel.fromJson(jsonMap);
       //assert
@@ -24,7 +25,7 @@ void main() {
     test('should return a valid model when json number is a double', () async {
       //arrange
       final Map<String, dynamic> jsonMap =
-          json.decode(fixture('trivia_double.json'));
+          json.decode(fixture('trivia/trivia_double.json'));
       //act
       final result = NumberTriviaModel.fromJson(jsonMap);
       //assert

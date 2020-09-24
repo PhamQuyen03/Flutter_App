@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_app/core/ultis/encryptor.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 import '../../features/authentication/data/models/token_response_model.dart';
@@ -48,13 +49,11 @@ class AuthenticationService {
   }
 
   getCodeChallenge() async {
-    //debugger
-    //let code = this.cookieService.get(CODE_CHALLENGE);
     var code = await _storage.read(key: CODE_CHALLENGE);
-    // if (code) {
-    //   let encryped_code = this.encryptor.encrypt(code);
-    //   return code+'.'+encryped_code;
-    // }
+    if (code != null) {
+      String encryptedCode = encryptText(code);
+      return code + '.' + encryptedCode;
+    }
     return "";
   }
 

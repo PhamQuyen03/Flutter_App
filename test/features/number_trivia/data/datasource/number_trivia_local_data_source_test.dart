@@ -22,13 +22,13 @@ void main() {
   });
 
   group('getLastNumberTrivia', () {
-    final tNumberTriviaModel =
-        NumberTriviaModel.fromJson(json.decode(fixture('trivia_cached.json')));
+    final tNumberTriviaModel = NumberTriviaModel.fromJson(
+        json.decode(fixture('trivia/trivia_cached.json')));
     test(
         'should return NumberTrivia from SharedPreferences when there is one in the cache',
         () async {
       when(mockSharedPreferences.getString(any))
-          .thenReturn(fixture('trivia_cached.json'));
+          .thenReturn(fixture('trivia/trivia_cached.json'));
       final result = await dataSource.getLastNumberTrivia();
       verify(mockSharedPreferences.getString(CACHED_NUMBER_TRIVIA));
       expect(result, tNumberTriviaModel);

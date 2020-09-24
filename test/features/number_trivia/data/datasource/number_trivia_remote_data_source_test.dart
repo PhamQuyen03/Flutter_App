@@ -20,8 +20,8 @@ void main() {
     dataSource = NumberTriviaRemoteDataSourceImpl(client: mockHttpClient);
   });
   void mockSetUpHttpClientSuccess200() {
-    when(mockHttpClient.get(any, headers: anyNamed('headers')))
-        .thenAnswer((_) async => http.Response(fixture('trivia.json'), 200));
+    when(mockHttpClient.get(any, headers: anyNamed('headers'))).thenAnswer(
+        (_) async => http.Response(fixture('trivia/trivia.json'), 200));
   }
 
   void mockSetUpHttpClientFailure404() {
@@ -32,7 +32,7 @@ void main() {
   group('getConcreteNumberTrivia', () {
     final tNumber = 1;
     final tNumberTriviaModel =
-        NumberTriviaModel.fromJson(json.decode(fixture('trivia.json')));
+        NumberTriviaModel.fromJson(json.decode(fixture('trivia/trivia.json')));
     test('''should peform a GET request on a URL with number
     being the enpoint and with application/json header
     ''', () async {
@@ -69,7 +69,7 @@ void main() {
   });
   group('getRandomNumberTrivia', () {
     final tNumberTriviaModel =
-        NumberTriviaModel.fromJson(json.decode(fixture('trivia.json')));
+        NumberTriviaModel.fromJson(json.decode(fixture('trivia/trivia.json')));
     test('''should peform a GET request on a URL with number
     being the enpoint and with application/json header
     ''', () async {

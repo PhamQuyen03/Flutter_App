@@ -4,8 +4,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
-
-import '../../../../core/services/phone_authentiaction.dart';
 import '../../../../core/widgets/loading_dialog_widget.dart';
 import '../pages/phone_number_verify_code.dart';
 import 'button.dart';
@@ -24,7 +22,6 @@ class _FormVerifyCodeState extends State<FormVerifyCode> {
   TextEditingController textEditingController = TextEditingController();
   bool hasError = false;
   final GlobalKey<State> _keyLoader = new GlobalKey<State>();
-  PhoneAuthenticationService phoneAuth;
 
   bool isCodeSent = false;
   bool isLoading = false;

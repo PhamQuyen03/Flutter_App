@@ -30,5 +30,5 @@ class ApiResponseModel<T> extends Equatable {
 
   @override
   // TODO: implement props
-  List<Object> get props => [status, message, dataCount, totalCount, data];
+  List<Object> get props => [status, message, data, totalCount, totalCount];
 }

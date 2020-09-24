@@ -47,6 +47,9 @@ dependencies:
   
   firebase_auth: ^0.18.0+1
 
+  #encryption
+  encrypt: ^4.0.3
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

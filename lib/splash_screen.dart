@@ -1,13 +1,11 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_app/navigation/authentication.dart';
 
-import 'navigation/app.dart';
 import 'core/services/authentication_service.dart';
-import 'features/authentication/presentation/pages/login_page.dart';
 import 'injection_container.dart';
-import 'navigation/route_generator.dart';
+import 'navigation/app.dart';
+import 'navigation/authentication.dart';
 
 class SplashScreen extends StatefulWidget {
   @override

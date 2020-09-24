@@ -62,7 +62,7 @@ Future<void> init() async {
       AuthenticationRepositoryImpl(remoteDataSource: sl(), networkInfo: sl()));
   //Data sources
   sl.registerLazySingleton<AuthenticationRemoteDataSource>(
-      () => AuthenticationRemoteDataSourceImpl());
+      () => AuthenticationRemoteDataSourceImpl(client: sl()));
   //! Interceptor
   sl.registerFactory<Dio>(() => NetUtils.getDioInstance());
   //! Cores

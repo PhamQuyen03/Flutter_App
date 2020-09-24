@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app/core/config/palette.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import '../../../../styles.dart';
 
 // ignore: must_be_immutable
 class NewBoxBottom extends StatefulWidget {
@@ -28,7 +28,7 @@ class _NewBoxBottomState extends State<NewBoxBottom> {
           FlatButton.icon(
             padding: EdgeInsets.zero,
             textColor: widget.isLiked
-                ? secondColor
+                ? Palette.secondColor
                 : Theme.of(context).textTheme.subtitle2.color,
             onPressed: () {
               setState(() {
