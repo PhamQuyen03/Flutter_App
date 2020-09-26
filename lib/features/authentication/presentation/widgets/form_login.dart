@@ -1,5 +1,6 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_app/core/config/palette.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../bloc/login/login_bloc.dart';
 import 'button.dart';
@@ -35,7 +36,7 @@ class _FormLoginState extends State<FormLogin> {
             onSaved: (value) => _phoneNumber = value,
             onChanged: (value) => dispatchResetLoginForm(),
             validator: validatePhoneNumber,
-            textInputType: TextInputType.phone,
+            textInputType: TextInputType.number,
             prefixIcon: Icons.phone,
           ),
           SizedBox(
@@ -60,7 +61,7 @@ class _FormLoginState extends State<FormLogin> {
             onSubmit: () {
               _onSubmit(context);
             },
-            color: Theme.of(context).accentColor,
+            color: Palette.secondColor,
             textStyle: TextStyle(
               fontWeight: FontWeight.bold,
               fontSize: 18,
@@ -124,7 +125,7 @@ class ClickableText extends StatelessWidget {
           TextSpan(text: "Don't have an account? "),
           TextSpan(
               text: 'Sign up for free',
-              style: TextStyle(color: Theme.of(context).accentColor),
+              style: TextStyle(color: Palette.secondColor),
               recognizer: TapGestureRecognizer()
                 ..onTap = () {
                   Navigator.of(context).pushNamed('/register');

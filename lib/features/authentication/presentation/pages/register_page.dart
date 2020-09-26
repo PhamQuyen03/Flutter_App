@@ -1,19 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../core/services/authentication_service.dart';
 import '../../../../core/widgets/loading_dialog_widget.dart';
 import '../../../../injection_container.dart';
 import '../bloc/register/register_bloc.dart';
 import '../widgets/form_register.dart';
 
 class RegisterPage extends StatelessWidget {
-  final AuthenticationService _auth = sl<AuthenticationService>();
   final GlobalKey<State> _keyLoader = new GlobalKey<State>();
   bool isLoading = false;
   @override
   Widget build(BuildContext context) {
-    RegisterBloc bloc = sl<RegisterBloc>();
     return GestureDetector(
       onTap: () {
         FocusScopeNode currentFocus = FocusScope.of(context);
@@ -31,19 +28,17 @@ class RegisterPage extends StatelessWidget {
           child: Container(
             margin: EdgeInsets.only(top: 25.0),
             padding: const EdgeInsets.all(15.0),
-            child: buildBody(context, bloc),
+            child: buildBody(context),
           ),
         ),
       ),
     );
   }
 
-  BlocProvider<RegisterBloc> buildBody(
-      BuildContext context, RegisterBloc bloc) {
+  BlocProvider<RegisterBloc> buildBody(BuildContext context) {
     return BlocProvider(
-        create: (context) => bloc,
-        child: BlocListener(
-          cubit: bloc,
+        create: (context) => sl<RegisterBloc>(),
+        child: BlocListener<RegisterBloc, RegisterState>(
           listener: (BuildContext context, RegisterState state) async {
             if (state is RegisterInitial) {
               _closeLoadingDialog();

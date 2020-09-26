@@ -70,6 +70,7 @@ class _AppRootNavigatorState extends State<AppRootNavigator> {
           scaffold = Scaffold.of(context);
           return Stack(children: <Widget>[
             _buildOffstageNavigator(TabItem.home),
+            _buildOffstageNavigator(TabItem.speech),
             _buildOffstageNavigator(TabItem.trivia),
             _buildOffstageNavigator(TabItem.settings)
           ]);

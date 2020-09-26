@@ -21,17 +21,6 @@ void main() {
     mockHttpClient = new MockHttpClient();
     dataSource = AuthenticationRemoteDataSourceImpl(client: mockHttpClient);
   });
-
-  // void mockSetUpHttpClientSuccess200() {
-  //   when(mockDio.post(any))
-  //       .thenAnswer((_) async => Response(statusCode: 200, data: any));
-  // }
-
-  // void mockSetUpHttpClientFailure404() {
-  //   when(mockDio.get(any)).thenAnswer(
-  //       (_) async => Response(statusCode: 404, statusMessage: "Not found"));
-  // }
-
   group("sendRegisterRequest", () {
     final String phoneNumber = "0338004227";
     final String password = "123456";

@@ -1,8 +1,10 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_app/core/config/palette.dart';
 
 import 'core/services/authentication_service.dart';
+import 'features/authentication/presentation/pages/login_page.dart';
 import 'injection_container.dart';
 import 'navigation/app.dart';
 import 'navigation/authentication.dart';
@@ -27,8 +29,35 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: CircularProgressIndicator(),
+      backgroundColor: Palette.primaryColor,
+      body: Container(
+        width: double.infinity,
+        padding: EdgeInsets.only(
+          bottom: 35.0,
+        ),
+        child: Column(
+          mainAxisSize: MainAxisSize.max,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Expanded(
+              child: Image(
+                image: AssetImage('assets/images/logo.png'),
+                width: MediaQuery.of(context).size.width / 2,
+              ),
+            ),
+            Column(
+              children: [
+                Text(
+                  'Giải trí - Kết nối - Học tập',
+                  style: TextStyle(
+                      fontSize: 16,
+                      color: Palette.secondColor,
+                      fontWeight: FontWeight.bold),
+                ),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }

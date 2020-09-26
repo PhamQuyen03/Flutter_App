@@ -49,6 +49,10 @@ dependencies:
 
   #encryption
   encrypt: ^4.0.3
+  #text to speech
+  speech_to_text: ^2.7.0
+  #
+  avatar_glow: ^1.2.0
 
 dev_dependencies:
   flutter_test:

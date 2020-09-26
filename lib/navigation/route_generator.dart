@@ -4,6 +4,8 @@ import 'package:flutter_app/features/authentication/presentation/pages/phone_num
 import 'package:flutter_app/features/authentication/presentation/pages/register_page.dart';
 import 'package:flutter_app/features/authentication/presentation/pages/register_succeed_page.dart';
 import 'package:flutter_app/features/authentication/presentation/widgets/verify_code.dart';
+import 'package:flutter_app/features/home/presentation/pages/top_students.dart';
+import 'package:flutter_app/features/speech_recognition/presentation/pages/speech_recognition_page.dart';
 
 import '../features/home/presentation/pages/home_page.dart';
 import '../features/home/presentation/pages/post_detail.dart';
@@ -21,6 +23,22 @@ class HomeRouteGenerator {
       case '/post/detail':
         {
           return MaterialPageRoute(builder: (_) => PostDetail());
+        }
+      default:
+        {
+          return _errorRoute();
+        }
+    }
+  }
+}
+
+class SpeechRouteGenerator {
+  static Route<dynamic> generateRoute(RouteSettings settings) {
+    final args = settings.arguments;
+    switch (settings.name) {
+      case '/':
+        {
+          return MaterialPageRoute(builder: (_) => SpeechRecognitionPage());
         }
       default:
         {

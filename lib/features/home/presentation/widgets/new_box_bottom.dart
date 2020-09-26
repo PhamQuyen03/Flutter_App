@@ -27,9 +27,8 @@ class _NewBoxBottomState extends State<NewBoxBottom> {
         children: [
           FlatButton.icon(
             padding: EdgeInsets.zero,
-            textColor: widget.isLiked
-                ? Palette.secondColor
-                : Theme.of(context).textTheme.subtitle2.color,
+            textColor:
+                widget.isLiked ? Palette.primaryColor : Palette.subTextColor,
             onPressed: () {
               setState(() {
                 widget.isLiked = !widget.isLiked;
@@ -39,9 +38,9 @@ class _NewBoxBottomState extends State<NewBoxBottom> {
                   widget.totalLikes--;
               });
             },
-            icon: Icon(Icons.star),
+            icon: Icon(Icons.thumb_up),
             label: Text(
-              '${widget.totalLikes} Lượt thích',
+              '${widget.totalLikes} Like',
             ),
           ),
           FlatButton.icon(
@@ -52,7 +51,7 @@ class _NewBoxBottomState extends State<NewBoxBottom> {
             },
             icon: Icon(FontAwesomeIcons.comment),
             label: Text(
-              '${widget.totalComments} Bình luận',
+              '${widget.totalComments} Comment',
             ),
           ),
         ],

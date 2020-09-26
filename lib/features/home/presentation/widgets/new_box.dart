@@ -13,7 +13,12 @@ class NewBox extends StatelessWidget {
         padding: const EdgeInsets.fromLTRB(15, 15, 15, 5),
         child: Column(
           children: [
-            NewBoxHeader(),
+            NewBoxHeader(
+              fullName: 'Nguyễn Minh Tuấn',
+              timeAgo: "15 phút trước",
+              avatar: "",
+              userId: 1,
+            ),
             Padding(
               padding: const EdgeInsets.fromLTRB(0, 15, 0, 15),
               child: Column(

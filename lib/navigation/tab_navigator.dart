@@ -12,6 +12,8 @@ class TabNavigator extends StatelessWidget {
     switch (tabItem) {
       case TabItem.home:
         return HomeRouteGenerator.generateRoute(settings);
+      case TabItem.speech:
+        return SpeechRouteGenerator.generateRoute(settings);
       case TabItem.trivia:
         return TriviaRouteGenerator.generateRoute(settings);
       case TabItem.settings:

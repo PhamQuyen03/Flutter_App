@@ -29,7 +29,7 @@ class AuthenticationRepositoryImpl implements AuthenticationRepository {
         return Left(ServerFailure());
       }
     } else {
-      return Left(ServerFailure());
+      return Left(NoInternetFailure());
     }
   }
 
@@ -75,7 +75,7 @@ class AuthenticationRepositoryImpl implements AuthenticationRepository {
         return Left(ServerFailure());
       }
     } else {
-      return Left(ServerFailure());
+      return Left(NoInternetFailure());
     }
   }
 }

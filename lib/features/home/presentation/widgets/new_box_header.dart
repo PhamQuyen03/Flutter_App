@@ -3,6 +3,19 @@ import 'package:flutter_app/core/config/palette.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class NewBoxHeader extends StatelessWidget {
+  final String fullName;
+  final String avatar;
+  final String timeAgo;
+  final int userId;
+
+  const NewBoxHeader(
+      {Key key,
+      @required this.fullName,
+      @required this.avatar,
+      @required this.timeAgo,
+      @required this.userId})
+      : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -25,7 +38,7 @@ class NewBoxHeader extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      'Nguyễn Minh Tuấn',
+                      fullName,
                       textAlign: TextAlign.left,
                       style: TextStyle(
                           fontSize: 18.0,
@@ -33,7 +46,7 @@ class NewBoxHeader extends StatelessWidget {
                           color: Palette.textDarkBlue),
                     ),
                     Text(
-                      '15 phút trước',
+                      timeAgo,
                       style: TextStyle(fontSize: 12.0),
                       textAlign: TextAlign.left,
                     )

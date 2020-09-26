@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 
-enum TabItem { home, trivia, settings }
+enum TabItem { home, speech, trivia, settings }
 
 Map<TabItem, String> tabName = {
   TabItem.home: 'Home',
+  TabItem.speech: 'Speech',
   TabItem.trivia: 'Trivia',
   TabItem.settings: 'Settings'
 };
@@ -12,25 +13,50 @@ class BottomNavigation extends StatelessWidget {
   BottomNavigation({this.currentTab, this.onSelectTab});
   final TabItem currentTab;
   final ValueChanged<TabItem> onSelectTab;
-
   @override
   Widget build(BuildContext context) {
     return BottomNavigationBar(
+      backgroundColor: Colors.white,
+      elevation: 1,
       type: BottomNavigationBarType.fixed,
       items: [
         _buildItem(tabItem: TabItem.home),
+        _buildItem(tabItem: TabItem.speech),
         _buildItem(tabItem: TabItem.trivia),
         _buildItem(tabItem: TabItem.settings),
       ],
       onTap: (index) => onSelectTab(
         TabItem.values[index],
       ),
+      currentIndex: currentTab.index,
     );
   }
 
   BottomNavigationBarItem _buildItem({TabItem tabItem}) {
     String text = tabName[tabItem];
-    IconData icon = Icons.layers;
+    IconData icon;
+    switch (tabItem) {
+      case TabItem.home:
+        {
+          icon = Icons.home;
+          break;
+        }
+      case TabItem.speech:
+        {
+          icon = Icons.record_voice_over;
+          break;
+        }
+      case TabItem.trivia:
+        {
+          icon = Icons.layers;
+          break;
+        }
+      case TabItem.settings:
+        {
+          icon = Icons.settings;
+          break;
+        }
+    }
     return BottomNavigationBarItem(
       icon: Icon(
         icon,
