@@ -31,11 +31,11 @@ class _AppRootNavigatorState extends State<AppRootNavigator> {
   }
 
   Future<void> showSnackBar() async {
-    if (await auth.isLoggedIn()) {
-      var user = await auth.getUser();
-      scaffold.showSnackBar(
-          SnackBar(content: Text("You're logged in as " + user.fullName)));
-    }
+    // if (await auth.isLoggedIn()) {
+    //   var user = await auth.getUser();
+    //   scaffold.showSnackBar(
+    //       SnackBar(content: Text("You're logged in as " + user.fullName)));
+    // }
   }
 
   void _selectTab(TabItem tabItem) {
@@ -70,7 +70,8 @@ class _AppRootNavigatorState extends State<AppRootNavigator> {
           scaffold = Scaffold.of(context);
           return Stack(children: <Widget>[
             _buildOffstageNavigator(TabItem.home),
-            _buildOffstageNavigator(TabItem.speech),
+            _buildOffstageNavigator(TabItem.test),
+            _buildOffstageNavigator(TabItem.search),
             _buildOffstageNavigator(TabItem.trivia),
             _buildOffstageNavigator(TabItem.settings)
           ]);

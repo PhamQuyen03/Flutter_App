@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 
-enum TabItem { home, speech, trivia, settings }
+enum TabItem { home, test, search, trivia, settings }
 
 Map<TabItem, String> tabName = {
   TabItem.home: 'Home',
-  TabItem.speech: 'Speech',
+  TabItem.test: 'Test',
+  TabItem.search: 'Search',
+  //TabItem.speech: 'Speech',
   TabItem.trivia: 'Trivia',
   TabItem.settings: 'Settings'
 };
@@ -21,7 +23,8 @@ class BottomNavigation extends StatelessWidget {
       type: BottomNavigationBarType.fixed,
       items: [
         _buildItem(tabItem: TabItem.home),
-        _buildItem(tabItem: TabItem.speech),
+        _buildItem(tabItem: TabItem.test),
+        _buildItem(tabItem: TabItem.search),
         _buildItem(tabItem: TabItem.trivia),
         _buildItem(tabItem: TabItem.settings),
       ],
@@ -41,9 +44,14 @@ class BottomNavigation extends StatelessWidget {
           icon = Icons.home;
           break;
         }
-      case TabItem.speech:
+      case TabItem.test:
         {
-          icon = Icons.record_voice_over;
+          icon = Icons.list;
+          break;
+        }
+      case TabItem.search:
+        {
+          icon = Icons.search;
           break;
         }
       case TabItem.trivia:

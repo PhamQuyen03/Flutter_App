@@ -5,7 +5,9 @@ import 'package:flutter_app/features/authentication/presentation/pages/register_
 import 'package:flutter_app/features/authentication/presentation/pages/register_succeed_page.dart';
 import 'package:flutter_app/features/authentication/presentation/widgets/verify_code.dart';
 import 'package:flutter_app/features/home/presentation/pages/top_students.dart';
+import 'package:flutter_app/features/search/presentation/pages/search_page.dart';
 import 'package:flutter_app/features/speech_recognition/presentation/pages/speech_recognition_page.dart';
+import 'package:flutter_app/features/test/presentation/pages/test_page.dart';
 
 import '../features/home/presentation/pages/home_page.dart';
 import '../features/home/presentation/pages/post_detail.dart';
@@ -32,13 +34,44 @@ class HomeRouteGenerator {
   }
 }
 
-class SpeechRouteGenerator {
+// class SpeechRouteGenerator {
+//   static Route<dynamic> generateRoute(RouteSettings settings) {
+//     final args = settings.arguments;
+//     switch (settings.name) {
+//       case '/':
+//         {
+//           return MaterialPageRoute(builder: (_) => SpeechRecognitionPage());
+//         }
+//       default:
+//         {
+//           return _errorRoute();
+//         }
+//     }
+//   }
+// }
+class TestRouteGenerator {
   static Route<dynamic> generateRoute(RouteSettings settings) {
     final args = settings.arguments;
     switch (settings.name) {
       case '/':
         {
-          return MaterialPageRoute(builder: (_) => SpeechRecognitionPage());
+          return MaterialPageRoute(builder: (_) => TestPage());
+        }
+      default:
+        {
+          return _errorRoute();
+        }
+    }
+  }
+}
+
+class SearchRouteGenerator {
+  static Route<dynamic> generateRoute(RouteSettings settings) {
+    final args = settings.arguments;
+    switch (settings.name) {
+      case '/':
+        {
+          return MaterialPageRoute(builder: (_) => SearchPage());
         }
       default:
         {
