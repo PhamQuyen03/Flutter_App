@@ -14,7 +14,7 @@ description: A new Flutter project.
 version: 1.0.0+1
 
 environment:
-  sdk: ">=2.6.0 <3.0.0"
+  sdk: '>=2.6.0 <3.0.0'
 
 dependencies:
   flutter:
@@ -44,7 +44,7 @@ dependencies:
   pin_code_fields: ^5.1.0
   #firebase
   firebase_core: ^0.5.0
-  
+
   firebase_auth: ^0.18.0+1
 
   #encryption
@@ -63,15 +63,13 @@ dev_dependencies:
 flutter_icons:
   android: true
   ios: true
-  image_path: "assets/icons/icon-48x48.png"
-
+  image_path: 'assets/icons/icon-48x48.png'
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 
 # The following section is specific to Flutter.
 flutter:
-
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.
@@ -103,19 +101,19 @@ flutter:
   # list giving the asset and other descriptors for the font. For
   # example:
   fonts:
-     - family: OpenSans
-       fonts:
-         - asset: assets/fonts/OpenSans-Light.ttf
-           weight: 300
-         - asset: assets/fonts/OpenSans-Regular.ttf
-           weight: 400
-         - asset: assets/fonts/OpenSans-Italic.ttf
-           weight: 400
-           style: italic
-         - asset: assets/fonts/OpenSans-Bold.ttf
-           weight: 600
-         - asset: assets/fonts/OpenSans-ExtraBold.ttf
-           weight: 700
+    - family: OpenSans
+      fonts:
+        - asset: assets/fonts/OpenSans-Light.ttf
+          weight: 300
+        - asset: assets/fonts/OpenSans-Regular.ttf
+          weight: 400
+        - asset: assets/fonts/OpenSans-Italic.ttf
+          weight: 400
+          style: italic
+        - asset: assets/fonts/OpenSans-Bold.ttf
+          weight: 600
+        - asset: assets/fonts/OpenSans-ExtraBold.ttf
+          weight: 700
 
   #         style: italic
   #   - family: Trajan Pro
