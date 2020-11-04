@@ -1,8 +1,7 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:flutter_app/core/config/palette.dart';
 import '../../model/result_search.dart';
-import '../../../../search_main/presentation/pages/search_main_page.dart';
 
 class BoxResult extends StatelessWidget {
   final ResultSearch resultSearch;
@@ -28,12 +27,6 @@ class BoxResult extends StatelessWidget {
           child: InkWell(
             onTap: () {
               debugPrint('ontab');
-              Navigator.of(context, rootNavigator: true)
-                  .push(CupertinoPageRoute(builder: (BuildContext context) {
-                return SearchMainPage();
-              }));
-              // Navigator.push(context,
-              //     MaterialPageRoute(builder: (context) => SearchMainPage()));
             },
             child: Padding(
               padding: const EdgeInsets.fromLTRB(0, 0, 0, 8),
