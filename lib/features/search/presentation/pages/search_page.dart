@@ -28,6 +28,7 @@ class _SearchState extends State<SearchPage> {
           length: 6,
           child: Scaffold(
             appBar: AppBar(
+              brightness: Brightness.light,
               backgroundColor: Colors.white,
               title: Row(
                 children: <Widget>[

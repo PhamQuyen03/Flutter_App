@@ -67,7 +67,7 @@ class _SearchMainState extends State<SearchMainPage> {
 
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark.copyWith(
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
       statusBarColor: Colors.black,
     ));
 
@@ -82,6 +82,7 @@ class _SearchMainState extends State<SearchMainPage> {
           length: 6,
           child: Scaffold(
             appBar: AppBar(
+              brightness: Brightness.light,
               automaticallyImplyLeading: false,
               iconTheme: IconThemeData(
                 color: Colors.black, //change your color here
