@@ -114,7 +114,7 @@ class _SearchMainState extends State<SearchMainPage> {
                           style: TextStyle(fontSize: 16.0, color: Colors.black),
                           decoration: InputDecoration(
                             filled: true,
-                            fillColor: Colors.white,
+                            fillColor: Color(0xFFF3F3F3),
                             hintText: 'Tìm kiếm',
                             hintStyle: TextStyle(
                                 fontSize: 20.0, color: Color(0xffBDBDBD)),
@@ -126,11 +126,11 @@ class _SearchMainState extends State<SearchMainPage> {
                             contentPadding: const EdgeInsets.only(
                                 left: 14, top: 8, bottom: 8),
                             focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: Color(0xffBDBDBD)),
+                              borderSide: BorderSide(color: Color(0xFFF3F3F3)),
                               borderRadius: BorderRadius.circular(12),
                             ),
                             enabledBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: Color(0xffBDBDBD)),
+                              borderSide: BorderSide(color: Color(0xFFF3F3F3)),
                               borderRadius: BorderRadius.circular(12),
                             ),
                           ),
