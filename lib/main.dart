@@ -22,6 +22,11 @@ class MyApp extends StatelessWidget {
         // Define the default brightness and colors.
         primaryColor: Palette.primaryColor,
         accentColor: Palette.secondColor,
+        textTheme: TextTheme(
+          bodyText1: TextStyle(
+            color: Palette.textBlack,
+          ),
+        ),
         // Define the default font family.
         fontFamily: 'OpenSans',
         // Define the default TextTheme. Use this to specify the default

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_app/features/search_main/presentation/pages/widgets/button_filter.dart';
 import 'result_search_page.dart';
 import '../model/result_search.dart';
+import './widgets/widgets.dart';
 
 class _BottomSheetContent extends StatelessWidget {
   @override
@@ -99,112 +101,18 @@ class _SearchMainState extends State<SearchMainPage> {
                       onPressed: () => {Navigator.of(context).pop(true)},
                     ),
                   ),
-                  Expanded(
-                      child: Align(
-                    alignment: Alignment.center,
-                    child: SizedBox(
-                      child: Theme(
-                        data: Theme.of(context)
-                            .copyWith(splashColor: Colors.transparent),
-                        child: TextField(
-                          onSubmitted: (String str) {
-                            debugPrint('on submit $str');
-                          },
-                          controller: textController,
-                          autofocus: true,
-                          style: TextStyle(fontSize: 16.0, color: Colors.black),
-                          decoration: InputDecoration(
-                            filled: true,
-                            fillColor: Color(0xFFF3F3F3),
-                            hintText: 'Tìm kiếm',
-                            hintStyle: TextStyle(
-                                fontSize: 20.0, color: Color(0xffBDBDBD)),
-                            prefixIcon: Icon(
-                              Icons.search,
-                              color: Color(0xffBDBDBD),
-                              size: 36.0,
-                            ),
-                            contentPadding: const EdgeInsets.only(
-                                left: 14, top: 8, bottom: 8),
-                            focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: Color(0xFFF3F3F3)),
-                              borderRadius: BorderRadius.circular(12),
-                            ),
-                            enabledBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: Color(0xFFF3F3F3)),
-                              borderRadius: BorderRadius.circular(12),
-                            ),
-                          ),
-                        ),
-                      ),
-                      width: MediaQuery.of(context).size.width - 60,
-                      height: 36,
-                    ),
-                  )),
-                  ButtonTheme(
-                    minWidth: 20,
-                    padding: new EdgeInsets.all(0.0),
-                    child: FlatButton(
-                      child: Icon(
-                        Icons.filter_alt_outlined,
-                        color: Colors.amber[700],
-                      ),
-                      onPressed: () => {_showModalSheet()},
-                    ),
+                  SearchBox(
+                    textController,
                   ),
+                  ButtonFilter(
+                    onClick: _showModalSheet,
+                  )
                 ],
               ),
               bottom: PreferredSize(
-                  child: TabBar(
-                      isScrollable: true,
-                      unselectedLabelColor: Colors.black,
-                      indicatorColor: Colors.amber[700],
-                      labelColor: Colors.amber[700],
-                      tabs: [
-                        Tab(
-                          child: Text(
-                            'Mọi người',
-                            style: TextStyle(
-                                fontSize: 16, fontWeight: FontWeight.bold),
-                          ),
-                        ),
-                        Tab(
-                          child: Text(
-                            'Nhóm',
-                            style: TextStyle(
-                                fontSize: 16, fontWeight: FontWeight.bold),
-                          ),
-                        ),
-                        Tab(
-                          child: Text(
-                            'Bài tập',
-                            style: TextStyle(
-                                fontSize: 16, fontWeight: FontWeight.bold),
-                          ),
-                        ),
-                        Tab(
-                          child: Text(
-                            'Game',
-                            style: TextStyle(
-                                fontSize: 16, fontWeight: FontWeight.bold),
-                          ),
-                        ),
-                        Tab(
-                          child: Text(
-                            'Tab 5',
-                            style: TextStyle(
-                                fontSize: 16, fontWeight: FontWeight.bold),
-                          ),
-                        ),
-                        Tab(
-                          child: Text(
-                            'Tab 6',
-                            style: TextStyle(
-                                fontSize: 16, fontWeight: FontWeight.bold),
-                          ),
-                        )
-                      ]),
-                  preferredSize: Size.fromHeight(30.0)),
+                child: SearchBottomTabs(),
+                preferredSize: Size.fromHeight(30.0),
+              ),
             ),
             body: TabBarView(children: [
               ResultSearchPage(
