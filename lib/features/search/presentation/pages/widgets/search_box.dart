@@ -22,7 +22,7 @@ class _SearchBoxState extends State<SearchBox> {
               debugPrint('on submit $str');
             },
             controller: widget._textController,
-            autofocus: true,
+            // autofocus: true,
             style: TextStyle(fontSize: 16.0, color: Colors.black),
             decoration: InputDecoration(
               filled: true,

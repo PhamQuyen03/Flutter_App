@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+// import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../../model/result_search.dart';
-import '../../../../search_main/presentation/pages/search_main_page.dart';
+import '../result_search_page.dart';
 
 class BoxResult extends StatelessWidget {
   final ResultSearch resultSearch;
@@ -30,7 +30,7 @@ class BoxResult extends StatelessWidget {
               debugPrint('ontab');
               Navigator.of(context, rootNavigator: true)
                   .push(CupertinoPageRoute(builder: (BuildContext context) {
-                return SearchMainPage();
+                return ResultSearchPage();
               }));
               // Navigator.push(context,
               //     MaterialPageRoute(builder: (context) => SearchMainPage()));

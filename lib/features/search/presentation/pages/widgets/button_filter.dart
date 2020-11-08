@@ -16,7 +16,7 @@ class ButtonFilter extends StatelessWidget {
           Icons.filter_alt_outlined,
           color: Colors.amber[700],
         ),
-        onPressed: () => this.onClick,
+        onPressed: () => this.onClick(),
       ),
     );
   }
