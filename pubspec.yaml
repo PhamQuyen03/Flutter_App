@@ -57,6 +57,8 @@ dependencies:
   intl: '>=0.16.1'
   #
   flutter_svg: ^0.19.1
+  #  cached image from url
+  cached_network_image: ^2.2.0+1
 
 dev_dependencies:
   flutter_test:
