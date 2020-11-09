@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 // import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import '../../model/result_search.dart';
-import '../result_search_page.dart';
+import '../data/models/result_search.dart';
+import '../pages/result_search_page.dart';
 
 class BoxResult extends StatelessWidget {
   final ResultSearch resultSearch;

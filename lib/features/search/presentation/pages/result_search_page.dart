@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import '../model/result_search.dart';
-import './widgets/widgets.dart';
+import '../data/models/result_search.dart';
+import '../widgets/widgets.dart';
 
 class ResultSearchPage extends StatefulWidget {
   @override

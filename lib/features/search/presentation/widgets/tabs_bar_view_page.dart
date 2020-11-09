@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../model/result_search.dart';
+import '../data/models/result_search.dart';
 import 'content_tab_bar_view_page.dart';
 
 class TabBarViewPage extends StatefulWidget {
