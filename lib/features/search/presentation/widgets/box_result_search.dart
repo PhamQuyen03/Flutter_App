@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
-import '../../model/result_search.dart';
+import 'package:intl/intl.dart';
+import 'package:flutter_app/core/config/palette.dart';
+import '../data/models/result_search.dart';
 import './row_info_box_result.dart';
 import './header_box_result.dart';
 
 class BoxResultSearch extends StatelessWidget {
   final ResultSearch resultSearch;
+  final formatterNumber = new NumberFormat("#,###");
 
   BoxResultSearch({Key key, @required this.resultSearch}) : super(key: key);
 
@@ -38,38 +41,47 @@ class BoxResultSearch extends StatelessWidget {
                           'ulr image', 'Pham The Quyen', 'Hoc sinh - THPT ABC'),
                       Row(
                         crossAxisAlignment: CrossAxisAlignment.end,
+                        mainAxisAlignment: MainAxisAlignment.end,
                         children: [
                           SizedBox(
                             child: Column(children: [
                               RowInfoBoxResult(
                                   Icon(
                                     Icons.place,
-                                    color: Colors.black54,
+                                    color: Palette.iconInactive,
                                   ),
-                                  'Dia chi'),
+                                  'Yen Khanh, Ninh Binh'),
                               RowInfoBoxResult(
                                   Icon(
                                     Icons.edit,
-                                    color: Colors.black54,
+                                    color: Palette.iconInactive,
                                   ),
-                                  'Bai tap'),
+                                  'Lop 12'),
                               RowInfoBoxResult(
                                   Icon(
                                     Icons.people_rounded,
-                                    color: Colors.black54,
+                                    color: Palette.iconInactive,
                                   ),
-                                  'Nguoi theo doi'),
+                                  formatterNumber.format(1234) +
+                                      ' nguoi theo doi'),
                             ]),
                             width: MediaQuery.of(context).size.width / 2,
                           ),
-                          OutlineButton(
-                              borderSide: BorderSide(color: Colors.amber[700]),
-                              onPressed: () {
-                                print('Received click');
-                              },
-                              child: Text('Click Me'),
-                              shape: new RoundedRectangleBorder(
-                                  borderRadius: new BorderRadius.circular(8.0)))
+                          SizedBox(
+                              width: MediaQuery.of(context).size.width / 2 - 60,
+                              child: OutlineButton(
+                                  borderSide:
+                                      BorderSide(color: Colors.amber[700]),
+                                  onPressed: () {
+                                    print('Received click');
+                                  },
+                                  child: Text(
+                                    'Đang theo doi',
+                                    style: new TextStyle(fontSize: 12),
+                                  ),
+                                  shape: new RoundedRectangleBorder(
+                                      borderRadius:
+                                          new BorderRadius.circular(8.0)))),
                         ],
                       ),
                     ])),
