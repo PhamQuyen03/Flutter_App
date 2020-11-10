@@ -5,7 +5,6 @@ import 'package:flutter_app/features/home/data/model/dummy.dart';
 import 'package:flutter_app/features/home/presentation/pages/top_students.dart';
 import 'package:flutter_app/features/home/presentation/widgets/create_post_container.dart';
 import 'package:flutter_app/features/home/presentation/widgets/test_suggest.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import '../widgets/new_box.dart';
 
@@ -66,84 +65,20 @@ class _State extends State<HomePage> {
             child: CreatePostContainer(currentUser: currentUser),
           ),
           SliverToBoxAdapter(
-            child: TestSuggest(),
+            child: TestSuggest(
+              tests: testSuggests,
+            ),
           ),
           SliverToBoxAdapter(
             child: Container(
-              child: Column(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.all(15),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          'THÔNG BÁO',
-                          style: TextStyle(
-                            fontSize: 18.0,
-                            fontWeight: FontWeight.bold,
-                            color: Palette.textDarkBlue,
-                          ),
-                        ),
-                        Ink(
-                          height: 46,
-                          decoration: BoxDecoration(
-                            boxShadow: [
-                              BoxShadow(
-                                  blurRadius: 5,
-                                  offset: Offset(0, 4),
-                                  color: Color(0xffdddddd)),
-                            ],
-                            borderRadius: BorderRadius.circular(23),
-                            color: Palette.scaffold,
-                          ),
-                          child: InkWell(
-                            onTap: () {
-                              //await navigatePopup();
-                              Navigator.of(context, rootNavigator: true).push(
-                                  CupertinoPageRoute(
-                                      builder: (BuildContext context) {
-                                return TopStudentsPage();
-                              }));
-                            },
-                            child: Padding(
-                              padding: const EdgeInsets.fromLTRB(15, 8, 15, 8),
-                              child: Row(
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: <Widget>[
-                                  Padding(
-                                    padding: const EdgeInsets.only(right: 5.0),
-                                    child: Text(
-                                      'Bảng xếp hạng',
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .subtitle2
-                                          .copyWith(
-                                              fontWeight: FontWeight.bold,
-                                              color: Colors.grey),
-                                    ),
-                                  ),
-                                  Icon(
-                                    FontAwesomeIcons.trophy,
-                                    size: 16,
-                                    color: Colors.orange,
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  Column(
-                    children: [
-                      NewBox(),
-                      NewBox(),
-                      NewBox(),
-                    ],
-                  )
-                ],
+              width: double.infinity,
+              height: 800,
+              child: ListView.builder(
+                scrollDirection: Axis.vertical,
+                itemBuilder: (context, index) {
+                  return NewBox();
+                },
+                itemCount: 10,
               ),
             ),
           ),

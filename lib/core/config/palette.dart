@@ -31,6 +31,9 @@ class Palette {
   static const Color onlineState = Color(0xff03A9F4);
   static const Color neutral_200 = Color(0xffEEEEEE);
   static const Color neutral_400 = Color(0xffBDBDBD);
+  static const Color neutral_600 = Color(0xffDADADA);
+  static const Color neutral_800 = Color(0xff424242);
+  static const Color commonBorder = Color(0xffE0E0E0);
 
   //! Icon Color
   static const Color iconInactive = Color(0xFFBDBDBD);
