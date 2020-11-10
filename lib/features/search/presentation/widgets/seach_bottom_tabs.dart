@@ -1,53 +1,24 @@
 import 'package:flutter/material.dart';
+import '../data/models/tab_bar_search_model.dart';
 
 class SearchBottomTabs extends StatelessWidget {
-  const SearchBottomTabs({Key key}) : super(key: key);
+  final List<TabBarSearchModel> tabs;
+  SearchBottomTabs({Key key, @required this.tabs}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return TabBar(
-      isScrollable: true,
-      unselectedLabelColor: Colors.black,
-      indicatorColor: Colors.amber[700],
-      labelColor: Colors.amber[700],
-      tabs: [
-        Tab(
-          child: Text(
-            'Mọi người',
-            style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-          ),
-        ),
-        Tab(
-          child: Text(
-            'Nhóm',
-            style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-          ),
-        ),
-        Tab(
-          child: Text(
-            'Bài tập',
-            style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-          ),
-        ),
-        Tab(
-          child: Text(
-            'Game',
-            style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-          ),
-        ),
-        Tab(
-          child: Text(
-            'Tab 5',
-            style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-          ),
-        ),
-        Tab(
-          child: Text(
-            'Tab 6',
-            style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-          ),
-        )
-      ],
-    );
+        isScrollable: true,
+        unselectedLabelColor: Colors.black,
+        indicatorColor: Colors.amber[700],
+        labelColor: Colors.amber[700],
+        tabs: List.generate(
+            tabs.length,
+            (index) => Tab(
+                  child: Text(
+                    tabs[index].name,
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                  ),
+                )));
   }
 }
