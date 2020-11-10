@@ -4,12 +4,15 @@ import 'package:flutter_app/core/config/palette.dart';
 import '../data/models/result_search.dart';
 import './row_info_box_result.dart';
 import './header_box_result.dart';
+import '../data/models/tab_bar_search_model.dart';
 
 class BoxResultSearch extends StatelessWidget {
   final ResultSearch resultSearch;
+  final TabBarSearchModel tab;
   final formatterNumber = new NumberFormat("#,###");
 
-  BoxResultSearch({Key key, @required this.resultSearch}) : super(key: key);
+  BoxResultSearch({Key key, @required this.resultSearch, @required this.tab})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +41,9 @@ class BoxResultSearch extends StatelessWidget {
                     padding: const EdgeInsets.all(12),
                     child: Column(children: <Widget>[
                       HeaderBoxResult(
-                          'ulr image', 'Pham The Quyen', 'Hoc sinh - THPT ABC'),
+                          'ulr image',
+                          'Pham The Quyen - ${tab.name}',
+                          'Hoc sinh - THPT ABC'),
                       Row(
                         crossAxisAlignment: CrossAxisAlignment.end,
                         mainAxisAlignment: MainAxisAlignment.end,
@@ -53,7 +58,7 @@ class BoxResultSearch extends StatelessWidget {
                                   'Yen Khanh, Ninh Binh'),
                               RowInfoBoxResult(
                                   Icon(
-                                    Icons.edit,
+                                    Icons.assignment,
                                     color: Palette.iconInactive,
                                   ),
                                   'Lop 12'),

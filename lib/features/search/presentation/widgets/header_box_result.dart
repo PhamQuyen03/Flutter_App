@@ -60,26 +60,30 @@ class HeaderBoxResult extends StatelessWidget {
                 left: 10,
               ),
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    title1,
-                    style: new TextStyle(
-                      fontSize: 16.0,
-                      color: Palette.textBlack,
-                      fontWeight: FontWeight.bold,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Text(
+                      title1,
+                      style: new TextStyle(
+                        fontSize: 16.0,
+                        color: Palette.textBlack,
+                        fontWeight: title2 != null
+                            ? FontWeight.bold
+                            : FontWeight.normal,
+                      ),
                     ),
-                  ),
-                  Text(
-                    title2,
-                    style: new TextStyle(
-                      fontSize: 12.0,
-                      color: Palette.subTextColor,
-                    ),
-                  ),
-                ],
-              ),
+                    if (title2 != null) ...[
+                      Text(
+                        title2,
+                        style: new TextStyle(
+                          fontSize: 12.0,
+                          color: Palette.subTextColor,
+                        ),
+                      ),
+                    ] else
+                      ...[]
+                  ]),
             )
           ],
         ));
