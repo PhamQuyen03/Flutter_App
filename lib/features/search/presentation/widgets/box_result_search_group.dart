@@ -37,7 +37,9 @@ class BoxResultSearchGroup extends StatelessWidget {
             padding: const EdgeInsets.all(12),
             child: Column(
               children: [
-                HeaderBoxResult('ulr image', 'Group Học tập ',
+                HeaderBoxResult(
+                    'ulr image',
+                    'Group Học tập tieu de nay dai qua ma',
                     'Nhóm - 999 nghìn thành viên'),
                 RowInfoBoxResult(
                     Icon(
