@@ -3,7 +3,7 @@ import '../data/models/result_search.dart';
 import '../data/models/tab_bar_search_model.dart';
 import 'box_result_search.dart';
 import 'box_result_search_group.dart';
-import 'box_result_search_excercise.dart';
+import 'box_result_search_excersice.dart';
 
 class ContentTabBarViewPage extends StatefulWidget {
   final TabBarSearchModel tab;
