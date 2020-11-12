@@ -98,8 +98,8 @@ class BoxResultSearchExcersice extends StatelessWidget {
                 Row(
                   children: [
                     Container(
-                      child: HeaderBoxResult(
-                          'ulr image', 'Rebecca Ferguson ', null),
+                      child: HeaderBoxResult('ulr image',
+                          'Rebecca Ferguson dang minh duoc dep trai lam', null),
                       width: MediaQuery.of(context).size.width / 2,
                     ),
                     Container(
