@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import '../model/result_search.dart';
-import './widgets/widgets.dart';
+import '../data/models/result_search.dart';
+import '../widgets/widgets.dart';
+import '../data/models/tab_bar_search_model.dart';
 
 class ResultSearchPage extends StatefulWidget {
   @override
@@ -17,6 +18,12 @@ class _ResultSearchState extends State<ResultSearchPage> {
       'Noi dung ket qua tim kiem ${i + 1}',
     ),
   );
+  var tabsBar = [
+    TabBarSearchModel(1, 'Mọi Người', 'people'),
+    TabBarSearchModel(2, 'Nhóm', 'group'),
+    TabBarSearchModel(3, 'Bài Tập', 'excersice'),
+    TabBarSearchModel(4, 'Game', 'game'),
+  ];
 
   void _showModalSheet() {
     showModalBottomSheet(
@@ -46,7 +53,7 @@ class _ResultSearchState extends State<ResultSearchPage> {
           }
         },
         child: DefaultTabController(
-          length: 6,
+          length: tabsBar.length,
           child: Scaffold(
               appBar: AppBar(
                 brightness: Brightness.light,
@@ -75,11 +82,15 @@ class _ResultSearchState extends State<ResultSearchPage> {
                   ],
                 ),
                 bottom: PreferredSize(
-                  child: SearchBottomTabs(),
+                  child: SearchBottomTabs(
+                    tabs: tabsBar,
+                  ),
                   preferredSize: Size.fromHeight(30.0),
                 ),
               ),
-              body: TabBarViewPage(resultSearches)),
+              body: TabBarViewPage(
+                tabs: tabsBar,
+              )),
         ));
   }
 }

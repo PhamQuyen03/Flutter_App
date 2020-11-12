@@ -22,4 +22,7 @@ class Palette {
   static const Color subTextColor = Color(0xFF9E9E9E);
 
   static const Color textDarkBlue = Color(0xFF00335E);
+
+  //! Icon Color
+  static const Color iconInactive = Color(0xFFBDBDBD);
 }
