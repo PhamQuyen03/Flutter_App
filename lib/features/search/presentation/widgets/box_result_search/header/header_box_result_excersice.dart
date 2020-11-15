@@ -1,11 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/core/config/palette.dart';
+import 'package:intl/intl.dart';
 
 class HeaderBoxResultExcesice extends StatelessWidget {
   final String title1;
   final String title2;
-  HeaderBoxResultExcesice(this.title1, this.title2);
+  final double rateAvg;
+  final int sumRate;
+  final int view;
+  HeaderBoxResultExcesice(
+      this.title1, this.title2, this.rateAvg, this.sumRate, this.view);
 
+  final formatterNumber = new NumberFormat("#,###");
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -15,13 +21,14 @@ class HeaderBoxResultExcesice extends StatelessWidget {
             Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Flexible(
+                Expanded(
                   child: new Container(
                     padding: new EdgeInsets.only(
                       right: 10.0,
                     ),
                     child: new Text(
                       title1,
+                      maxLines: 2,
                       overflow: TextOverflow.ellipsis,
                       style: new TextStyle(
                         fontSize: 16.0,
@@ -38,7 +45,7 @@ class HeaderBoxResultExcesice extends StatelessWidget {
             Row(
               children: [
                 Text(
-                  '4.5',
+                  rateAvg.toString(),
                   style: new TextStyle(
                     fontSize: 12.0,
                     color: Palette.primaryColor,
@@ -53,7 +60,7 @@ class HeaderBoxResultExcesice extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  'từ 289 đánh giá',
+                  'từ $sumRate đánh giá',
                   style: new TextStyle(
                     fontSize: 12.0,
                     color: Palette.subTextColor,
@@ -68,7 +75,7 @@ class HeaderBoxResultExcesice extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  '22.000 lượt làm bài',
+                  '${formatterNumber.format(view)} lượt làm bài',
                   style: new TextStyle(
                     fontSize: 12.0,
                     color: Palette.subTextColor,

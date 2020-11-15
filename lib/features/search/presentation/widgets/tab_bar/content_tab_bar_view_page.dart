@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import '../data/models/result_search.dart';
-import '../data/models/tab_bar_search_model.dart';
-import 'box_result_search.dart';
-import 'box_result_search_group.dart';
-import 'box_result_search_excersice.dart';
+import '../../data/models/result_search.dart';
+import '../../data/models/tab_bar_search_model.dart';
+import '../box_result_search/box_result_search_group.dart';
+import '../box_result_search/box_result_search_excersice.dart';
+import '../box_result_search/box_result_search_member.dart';
 
 class ContentTabBarViewPage extends StatefulWidget {
   final TabBarSearchModel tab;
@@ -31,7 +31,7 @@ class _ContentTabBarViewPageState extends State<ContentTabBarViewPage> {
           itemBuilder: (context, index) {
             switch (widget.tab.type) {
               case 'people':
-                return BoxResultSearch(
+                return BoxResultSearchMemeber(
                   resultSearch: resultSearches[index],
                   tab: widget.tab,
                 );

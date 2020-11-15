@@ -29,8 +29,9 @@ class HeaderBoxResult extends StatelessWidget {
                     child: new ClipRRect(
                       borderRadius: BorderRadius.circular(18),
                       child: Image(
-                        image: NetworkImage(
-                            'https://cf.shopee.vn/file/c5c914b0b2ccff570c46751e7c7ade41&zimken.jpg'),
+                        // image: NetworkImage(
+                        //     'https://cf.shopee.vn/file/c5c914b0b2ccff570c46751e7c7ade41&zimken.jpg'),
+                        image: AssetImage('assets/icons/coin.png'),
                         width: 36,
                         height: 36,
                         colorBlendMode: BlendMode.darken,
@@ -59,13 +60,14 @@ class HeaderBoxResult extends StatelessWidget {
                 ]),
               ),
             ),
-            Flexible(
+            Expanded(
               child: new Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   Text(
                     title1,
                     overflow: TextOverflow.ellipsis,
+                    maxLines: 2,
                     style: new TextStyle(
                       fontSize: 16.0,
                       color: Palette.textBlack,
