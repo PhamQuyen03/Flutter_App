@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../data/models/tab_bar_search_model.dart';
+import '../../data/models/tab_bar_search_model.dart';
 
 class SearchBottomTabs extends StatelessWidget {
   final List<TabBarSearchModel> tabs;

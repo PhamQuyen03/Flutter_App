@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'content_tab_bar_view_page.dart';
-import '../data/models/tab_bar_search_model.dart';
+import '../../data/models/tab_bar_search_model.dart';
 
 class TabBarViewPage extends StatefulWidget {
   final List<TabBarSearchModel> tabs;
