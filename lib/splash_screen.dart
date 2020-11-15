@@ -1,18 +1,14 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
-import 'package:flutter_app/core/config/palette.dart';
-
+import 'core/config/palette.dart';
 import 'core/services/authentication_service.dart';
-import 'features/authentication/presentation/pages/login_page.dart';
 import 'injection_container.dart';
 import 'navigation/app.dart';
-import 'navigation/authentication.dart';
+import 'navigation/navigation.dart';
 
 class SplashScreen extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
-    // TODO: implement createState
     return _SplashScreenState();
   }
 }
@@ -21,7 +17,6 @@ class _SplashScreenState extends State<SplashScreen> {
   final AuthenticationService _auth = sl<AuthenticationService>();
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     startTimer();
   }
@@ -78,10 +73,7 @@ class _SplashScreenState extends State<SplashScreen> {
         MaterialPageRoute(builder: (context) => AppRootNavigator()),
       );
     } else {
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (context) => AuthenticationRootNavigator()),
-      );
+      navigateToLoginPage(context);
     }
   }
 }

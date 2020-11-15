@@ -1,7 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-
-import '../../../../navigation/authentication.dart';
+import '../../../../navigation/navigation.dart';
 import '../../../../core/api/api.dart';
 import '../../../../core/services/authentication_service.dart';
 import '../../../../injection_container.dart';
@@ -21,6 +20,14 @@ class SettingsPage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
+            RaisedButton(
+              child: Text('Open search'),
+              onPressed: () async {
+                await navigateFeature(context, RouteItem.search);
+                //Navigator.of(context,rootNavigator: true).
+                //await _logOut(context);
+              },
+            ),
             RaisedButton(
               child: Text('Log out'),
               onPressed: () async {
@@ -45,7 +52,6 @@ class SettingsPage extends StatelessWidget {
       //await this.dio.get(`${this.url}/api/authenticate/logout?refresh_token=${this.getRefreshToken()}`).subscribe();
       await this._auth.logOut();
     }
-    Navigator.of(context, rootNavigator: true).pushReplacement(
-        MaterialPageRoute(builder: (context) => AuthenticationRootNavigator()));
+    navigateToLoginPage(context);
   }
 }

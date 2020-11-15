@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app/core/services/authentication_service.dart';
 import 'package:flutter_app/navigation/bottom_nav.dart';
 import '../injection_container.dart';
-import 'tab_navigator.dart';
+import 'navigation.dart';
+import './bottom_nav.dart';
 
-final navigatorKey = GlobalKey<NavigatorState>();
+//final navigatorKey = GlobalKey<NavigatorState>();
 
 class AppRootNavigator extends StatefulWidget {
   AppRootNavigator({Key key}) : super(key: key);
@@ -15,17 +16,13 @@ class AppRootNavigator extends StatefulWidget {
 
 class _AppRootNavigatorState extends State<AppRootNavigator> {
   AuthenticationService auth = sl<AuthenticationService>();
-  TabItem _currentTab = TabItem.home;
-  Map<TabItem, GlobalKey<NavigatorState>> _navigatorKeys = {
-    TabItem.home: GlobalKey<NavigatorState>(),
-    TabItem.trivia: GlobalKey<NavigatorState>(),
-    TabItem.settings: GlobalKey<NavigatorState>()
-  };
+  RouteItem _currentTab = NavigationSetting.initialPage;
+  //Map<RouteItem, GlobalKey<NavigatorState>> _navigatorKeys = NavigationSetting.appNavigatorKeys;
+
   ScaffoldState scaffold;
   @override
   void initState() {
     super.initState();
-
     WidgetsBinding.instance
         .addPostFrameCallback((_) async => await showSnackBar());
   }
@@ -38,10 +35,11 @@ class _AppRootNavigatorState extends State<AppRootNavigator> {
     // }
   }
 
-  void _selectTab(TabItem tabItem) {
+  void _selectTab(RouteItem tabItem) {
     if (tabItem == _currentTab) {
       // pop to first route
-      _navigatorKeys[tabItem].currentState.popUntil((route) => route.isFirst);
+      NavigationSetting.appNavigatorKeys[tabItem].currentState
+          .popUntil((route) => route.isFirst);
     } else {
       setState(() => _currentTab = tabItem);
     }
@@ -51,13 +49,14 @@ class _AppRootNavigatorState extends State<AppRootNavigator> {
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
-        final isFirstRouteInCurrentTab =
-            !await _navigatorKeys[_currentTab].currentState.maybePop();
+        final isFirstRouteInCurrentTab = !await NavigationSetting
+            .appNavigatorKeys[_currentTab].currentState
+            .maybePop();
         if (isFirstRouteInCurrentTab) {
           // if not on the 'main' tab
-          if (_currentTab != TabItem.home) {
+          if (_currentTab != NavigationSetting.initialPage) {
             // select 'main' tab
-            _selectTab(TabItem.home);
+            _selectTab(NavigationSetting.initialPage);
             // back button handled by app
             return false;
           }
@@ -68,13 +67,9 @@ class _AppRootNavigatorState extends State<AppRootNavigator> {
       child: Scaffold(
         body: Builder(builder: (context) {
           scaffold = Scaffold.of(context);
-          return Stack(children: <Widget>[
-            _buildOffstageNavigator(TabItem.home),
-            _buildOffstageNavigator(TabItem.test),
-            _buildOffstageNavigator(TabItem.search),
-            _buildOffstageNavigator(TabItem.trivia),
-            _buildOffstageNavigator(TabItem.settings)
-          ]);
+          return Stack(
+            children: _buildOffstageNavigators(),
+          );
         }),
         bottomNavigationBar: BottomNavigation(
           currentTab: _currentTab,
@@ -84,13 +79,16 @@ class _AppRootNavigatorState extends State<AppRootNavigator> {
     );
   }
 
-  Widget _buildOffstageNavigator(TabItem tabItem) {
-    return Offstage(
-      offstage: _currentTab != tabItem,
-      child: TabNavigator(
-        navigatorKey: _navigatorKeys[tabItem],
-        tabItem: tabItem,
-      ),
-    );
+  List<Widget> _buildOffstageNavigators() {
+    List<Widget> list = new List<Widget>();
+    NavigationSetting.appTabs.forEach((key, value) {
+      list.add(
+        Offstage(
+          offstage: _currentTab != value.id,
+          child: buildNavigatorForFeature(value.id),
+        ),
+      );
+    });
+    return list;
   }
 }

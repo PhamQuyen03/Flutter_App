@@ -93,10 +93,4 @@ class _State extends State<HomePage> {
       return TopStudentsPage();
     }));
   }
-//   Navigator.of(context).push(new MaterialPageRoute<Null>(
-//   builder: (BuildContext context) {
-//     return new AddEntryDialog();
-//   },
-//   fullscreenDialog: true
-// ));
 }
