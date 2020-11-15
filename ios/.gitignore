@@ -14,6 +14,7 @@ Icon?
 profile
 xcuserdata
 **/.generated/
+Podfile.lock
 Flutter/App.framework
 Flutter/Flutter.framework
 Flutter/Flutter.podspec
@@ -22,6 +23,7 @@ Flutter/app.flx
 Flutter/app.zip
 Flutter/flutter_assets/
 Flutter/flutter_export_environment.sh
+Flutter/.last_build_id
 ServiceDefinitions.json
 Runner/GeneratedPluginRegistrant.*
 
