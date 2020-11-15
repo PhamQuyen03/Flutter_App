@@ -21,7 +21,6 @@ class HeaderBoxResult extends StatelessWidget {
               child: SizedBox(
                 height: 36,
                 width: 36,
-                //positon:absolute
                 child: new Stack(children: <Widget>[
                   new Positioned(
                     left: 0.0,
