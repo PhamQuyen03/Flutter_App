@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_app/features/search/presentation/widgets/widgets.dart';
 import '../data/models/result_search.dart';
-import '../widgets/widgets.dart';
 import '../data/models/tab_bar_search_model.dart';
+import '../widgets/filter/widgets.dart';
+import '../widgets/tab_bar/widgets.dart';
 
 class ResultSearchPage extends StatefulWidget {
   @override

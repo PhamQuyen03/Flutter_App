@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import '../../data/models/result_search.dart';
-import 'row_info/row_info_box_result.dart';
-import 'header/header_box_result.dart';
-import '../../data/models/tab_bar_search_model.dart';
-import 'layout_box_result_search.dart';
+
+import '../../../../../../core/config/app_icons.dart';
+import '../../../data/models/result_search.dart';
+import '../../../data/models/tab_bar_search_model.dart';
+import '../box_search_controls/widgets.dart';
+import '../layout_box_result_search.dart';
 
 class BoxResultSearchGroup extends StatelessWidget {
   final ResultSearch resultSearch;
@@ -35,24 +36,25 @@ class BoxResultSearchGroup extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           Expanded(
-                            child: Column(children: [
-                              Row(
-                                children: [
-                                  RowInfoBoxResult(
-                                      uriImage: 'assets/icons/Graph.svg',
-                                      title:
-                                          'Là nhóm dành cho các bạn yêu thích môn'),
-                                ],
-                              ),
-                              Row(
-                                children: [
-                                  RowInfoBoxResult(
-                                      uriImage: 'assets/icons/Graph.svg',
-                                      title:
-                                          '${formatterNumber.format(2000)} bài viết'),
-                                ],
-                              ),
-                            ]),
+                            child: RowInfoBoxResult(
+                              isStandAlone: true,
+                              items: [
+                                RowInfoBoxItemModel(
+                                  icon: AppIcon.graph,
+                                  title:
+                                      'Là nhóm dành cho các bạn yêu thích môn',
+                                ),
+                                RowInfoBoxItemModel(
+                                  icon: AppIcon.graph,
+                                  title: 'lop 12',
+                                ),
+                                RowInfoBoxItemModel(
+                                  icon: AppIcon.graph,
+                                  title: formatterNumber.format(2000) +
+                                      ' bai viet',
+                                ),
+                              ],
+                            ),
                           )
                         ],
                       ),

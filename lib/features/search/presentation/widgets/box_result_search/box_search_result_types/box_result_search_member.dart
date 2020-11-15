@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:flutter_app/core/config/palette.dart';
-import '../../data/models/result_search.dart';
-import 'row_info/row_info_box_result.dart';
-import 'header/header_box_result.dart';
-import '../../data/models/tab_bar_search_model.dart';
-import 'layout_box_result_search.dart';
+
+import '../../../../../../core/config/app_icons.dart';
+import '../../../data/models/result_search.dart';
+import '../../../data/models/tab_bar_search_model.dart';
+import '../box_search_controls/widgets.dart';
+import '../layout_box_result_search.dart';
 
 class BoxResultSearchMemeber extends StatelessWidget {
   final ResultSearch resultSearch;
@@ -38,31 +38,25 @@ class BoxResultSearchMemeber extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           Expanded(
-                            child: Column(children: [
-                              Row(
-                                children: [
-                                  RowInfoBoxResult(
-                                      uriImage: 'assets/icons/Graph.svg',
-                                      title:
-                                          'Xom 2, Khanh Nhac, Yen Khanh, Ninh Binh, Viet Nam'),
-                                ],
-                              ),
-                              Row(
-                                children: [
-                                  RowInfoBoxResult(
-                                      uriImage: 'assets/icons/Graph.svg',
-                                      title: 'Lop 12'),
-                                ],
-                              ),
-                              Row(
-                                children: [
-                                  RowInfoBoxResult(
-                                      uriImage: 'assets/icons/Graph.svg',
-                                      title: formatterNumber.format(1234) +
-                                          ' nguoi theo doi'),
-                                ],
-                              ),
-                            ]),
+                            child: RowInfoBoxResult(
+                              isStandAlone: true,
+                              items: [
+                                RowInfoBoxItemModel(
+                                  icon: AppIcon.graph,
+                                  title:
+                                      'Xom 2, Khanh Nhac, Yen Khanh, Ninh Binh, Viet Nam',
+                                ),
+                                RowInfoBoxItemModel(
+                                  icon: AppIcon.graph,
+                                  title: 'lop 12',
+                                ),
+                                RowInfoBoxItemModel(
+                                  icon: AppIcon.graph,
+                                  title: formatterNumber.format(1234) +
+                                      ' nguoi theo doi',
+                                ),
+                              ],
+                            ),
                           )
                         ],
                       ),

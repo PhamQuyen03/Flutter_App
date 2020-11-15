@@ -95,6 +95,7 @@ flutter:
     - assets/icons/Graph.svg
     - assets/icons/TimeCircle.svg
     - assets/icons/Work.svg
+    - assets/icons/test.svg
     # assets:
   #  - images/a_dot_burr.jpeg
   #  - images/a_dot_ham.jpeg
