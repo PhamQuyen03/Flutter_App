@@ -11,20 +11,57 @@ class ContentTabBarViewPage extends StatefulWidget {
   _ContentTabBarViewPageState createState() => _ContentTabBarViewPageState();
 }
 
-class _ContentTabBarViewPageState extends State<ContentTabBarViewPage> {
-  var resultSearches = List.generate(
-    20,
-    (i) => ResultSearch(
-      'Ket qua tim kiem',
-      'Noi dung ket qua tim kiem ${i + 1}',
-    ),
-  );
+class _ContentTabBarViewPageState extends State<ContentTabBarViewPage>
+    with AutomaticKeepAliveClientMixin {
+  ScrollController controller;
+  List<ResultSearch> resultSearches = [];
+  int count = 0;
+  @override
+  void initState() {
+    super.initState();
+    controller = new ScrollController()..addListener(_scrollListener);
+    setState(() {
+      resultSearches = List.generate(
+        20,
+        (i) => ResultSearch(
+          'Ket qua tim kiem ${widget.tab.type} ${i + 1}',
+          'Noi dung ket qua tim kiem ${widget.tab.type} ${i + 1}',
+        ),
+      );
+    });
+  }
+
+  @override
+  void dispose() {
+    controller.removeListener(_scrollListener);
+    super.dispose();
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+  }
+
+  void _scrollListener() {
+    if (controller.position.extentAfter < 100) {
+      setState(() {
+        count = count + 1;
+        resultSearches.addAll(new List.generate(
+            20,
+            (index) => ResultSearch(
+                  'Ket qua tim kiem ${widget.tab.type} ${resultSearches.length + index + 1}',
+                  'Noi dung ket qua tim kiem ${widget.tab.type} ${resultSearches.length + index + 1}',
+                )));
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.only(top: 4),
       child: ListView.builder(
+          controller: controller,
           itemCount: resultSearches.length,
           itemBuilder: (context, index) {
             switch (widget.tab.type) {
@@ -45,4 +82,7 @@ class _ContentTabBarViewPageState extends State<ContentTabBarViewPage> {
           }),
     );
   }
+
+  @override
+  bool get wantKeepAlive => true;
 }

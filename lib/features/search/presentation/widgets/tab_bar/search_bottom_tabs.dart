@@ -3,12 +3,14 @@ import '../../data/models/tab_bar_search_model.dart';
 
 class SearchBottomTabs extends StatelessWidget {
   final List<TabBarSearchModel> tabs;
-  SearchBottomTabs({Key key, @required this.tabs}) : super(key: key);
+  final TabController tabController;
+  SearchBottomTabs({@required this.tabs, this.tabController});
 
   @override
   Widget build(BuildContext context) {
     return TabBar(
         isScrollable: true,
+        controller: tabController,
         unselectedLabelColor: Colors.black,
         indicatorColor: Colors.amber[700],
         labelColor: Colors.amber[700],

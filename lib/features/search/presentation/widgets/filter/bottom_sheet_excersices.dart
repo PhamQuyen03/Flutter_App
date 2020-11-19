@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class BottomSheetContent extends StatelessWidget {
+class BottomSheetExcersices extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -15,22 +15,16 @@ class BottomSheetContent extends StatelessWidget {
           ),
           child: Center(
             child: Text(
-              'Header',
+              'Excersices',
               textAlign: TextAlign.center,
             ),
           ),
         ),
         const Divider(thickness: 1),
-        Expanded(
-          child: ListView.builder(
-            itemCount: 21,
-            itemBuilder: (context, index) {
-              return ListTile(
-                title: Text('item $index '),
-              );
-            },
-          ),
-        ),
+        Text('Excersices 1 '),
+        Text('Excersices 2 '),
+        Text('Excersices 3 '),
+        Text('Excersices 4 '),
       ],
     );
   }

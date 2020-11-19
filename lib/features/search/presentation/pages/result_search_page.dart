@@ -7,19 +7,19 @@ import '../widgets/filter/widgets.dart';
 import '../widgets/tab_bar/widgets.dart';
 
 class ResultSearchPage extends StatefulWidget {
+  final String textSearch;
+
+  const ResultSearchPage({Key key, @required this.textSearch})
+      : super(key: key);
   @override
   _ResultSearchState createState() => _ResultSearchState();
 }
 
-class _ResultSearchState extends State<ResultSearchPage> {
+class _ResultSearchState extends State<ResultSearchPage>
+    with SingleTickerProviderStateMixin {
+  TabController tabController;
+  int currentIndex;
   var textController = new TextEditingController();
-  var resultSearches = List.generate(
-    20,
-    (i) => ResultSearch(
-      'Ket qua tim kiem ${i + 1}',
-      'Noi dung ket qua tim kiem ${i + 1}',
-    ),
-  );
   var tabsBar = [
     TabBarSearchModel(1, 'Mọi Người', 'people'),
     TabBarSearchModel(2, 'Nhóm', 'group'),
@@ -27,8 +27,22 @@ class _ResultSearchState extends State<ResultSearchPage> {
     TabBarSearchModel(4, 'Game', 'game'),
   ];
 
+  @override
+  void initState() {
+    super.initState();
+    tabController =
+        new TabController(vsync: this, length: tabsBar.length, initialIndex: 0);
+  }
+
+  @override
+  void dispose() {
+    tabController.dispose();
+    super.dispose();
+  }
+
   void _showModalSheet() {
     showModalBottomSheet(
+        isScrollControlled: false,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.only(
             topLeft: Radius.circular(12),
@@ -37,7 +51,19 @@ class _ResultSearchState extends State<ResultSearchPage> {
         ),
         context: context,
         builder: (builder) {
-          return BottomSheetContent();
+          switch (tabController.index) {
+            case 0:
+              return BottomSheetPeople();
+              break;
+            case 1:
+              return BottomSheetGroup();
+              break;
+            case 2:
+              return BottomSheetExcersices();
+              break;
+            default:
+              return BottomSheetContent();
+          }
         });
   }
 
@@ -86,12 +112,14 @@ class _ResultSearchState extends State<ResultSearchPage> {
                 bottom: PreferredSize(
                   child: SearchBottomTabs(
                     tabs: tabsBar,
+                    tabController: tabController,
                   ),
                   preferredSize: Size.fromHeight(30.0),
                 ),
               ),
               body: TabBarViewPage(
                 tabs: tabsBar,
+                tabController: tabController,
               )),
         ));
   }

@@ -1,9 +1,11 @@
 import 'package:dio/dio.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../../../../navigation/navigation.dart';
 import '../../../../core/api/api.dart';
 import '../../../../core/services/authentication_service.dart';
 import '../../../../injection_container.dart';
+import '../../../search/presentation/pages/search_page.dart';
 
 class SettingsPage extends StatelessWidget {
   final AuthenticationService _auth = sl<AuthenticationService>();
@@ -23,7 +25,11 @@ class SettingsPage extends StatelessWidget {
             RaisedButton(
               child: Text('Open search'),
               onPressed: () async {
-                await navigateFeature(context, RouteItem.search);
+                // await navigateFeature(context, RouteItem.search);
+                Navigator.of(context, rootNavigator: true)
+                    .push(CupertinoPageRoute(builder: (BuildContext context) {
+                  return SearchPage();
+                }));
                 //Navigator.of(context,rootNavigator: true).
                 //await _logOut(context);
               },

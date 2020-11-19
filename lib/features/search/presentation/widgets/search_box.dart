@@ -34,6 +34,20 @@ class _SearchBoxState extends State<SearchBox> {
                 color: Color(0xffBDBDBD),
                 size: 36.0,
               ),
+              suffixIcon: SizedBox(
+                child: FlatButton(
+                  padding: EdgeInsets.all(0),
+                  onPressed: () {
+                    widget._textController.text = '';
+                  },
+                  child: Icon(
+                    Icons.close,
+                    color: Color(0xffBDBDBD),
+                    size: 20.0,
+                  ),
+                ),
+                width: 30.0,
+              ),
               contentPadding:
                   const EdgeInsets.only(left: 14, top: 8, bottom: 8),
               focusedBorder: OutlineInputBorder(
